@@ -1,9 +1,18 @@
 package es.udc.cookbook;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-/*
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,26 +24,37 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 
- */
+import es.udc.cookbook.Recipes.Recipe;
+import es.udc.cookbook.Recipes.RecipeAdapter;
 
-public class MainActivity extends AppCompatActivity {
+import es.udc.cookbook.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    private RecipeAdapter mAdapter;
+    public static final String KEY_POSITION = "position" ;
+    public static String KEY_RECIPE = "recipe";
+    private ActivityMainBinding binding;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-/*
     // Obtiene una referencia a la imagen en Firebase Storage
-    String imageName = "chicken-and-rice-with-leeks-and-salsa-verde.jpg";
-    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages").child(imageName);
+    //String imageName = "chicken-and-rice-with-leeks-and-salsa-verde.jpg";
+    //StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages").child(imageName);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*
+        ArrayList<Recipe> initialData = new ArrayList<>();
+        for (int i=0; i< 10; i++)
+            initialData.add(new Recipe(i));
+        initRecycler(initialData);
+
+         */
+
+        /*
         ImageView image = findViewById(R.id.my_image_view);
         Context context = image.getContext();
 
@@ -73,8 +93,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+         */
+
+
+    }
+/*
+    private void initRecycler(ArrayList<Recipe> recipes) {
+        mAdapter = new RecipeAdapter(recipes);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        binding.recycleView.setLayoutManager(linearLayoutManager);
+        binding.recycleView.setAdapter(mAdapter);
+        mAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Log.d("_TAG", " Item " + position );
+                Toast.makeText(getApplicationContext(), "item " + position,
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
  */
+
+
+    @Override
+    public void onClick(View v) {
+
+    }
 
 }
