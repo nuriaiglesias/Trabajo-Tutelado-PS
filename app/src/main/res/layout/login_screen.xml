@@ -47,6 +47,7 @@
                 android:drawableStart="@drawable/ic_baseline_person_24"
                 android:drawablePadding="8dp"
                 android:hint="@string/usernameText"
+                android:inputType="textPersonName"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />
