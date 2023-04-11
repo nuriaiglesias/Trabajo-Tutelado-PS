@@ -6,33 +6,17 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Recipe implements Parcelable {
-    String name, description;
+    String ingredients, image, instructions, title, field;
 
     protected Recipe(Parcel in) {
-        name = in.readString();
-        description = in.readString();
+        ingredients = in.readString();
+        image = in.readString();
+        instructions = in.readString();
+        title = in.readString();
+        field = in.readString();
     }
 
-    public Recipe(int i) {
-        this.name = "title " + i;
-        this.description = "description " + i;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName (String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -54,7 +38,50 @@ public class Recipe implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
+        dest.writeString(ingredients);
+        dest.writeString(image);
+        dest.writeString(instructions);
+        dest.writeString(title);
+        dest.writeString(field);
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
     }
 }

@@ -39,22 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     // Obtiene una referencia a la imagen en Firebase Storage
-    //String imageName = "chicken-and-rice-with-leeks-and-salsa-verde.jpg";
-    //StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages").child(imageName);
+    String imageName = "chicken-and-rice-with-leeks-and-salsa-verde.jpg";
+    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages").child(imageName);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*
-        ArrayList<Recipe> initialData = new ArrayList<>();
-        for (int i=0; i< 10; i++)
-            initialData.add(new Recipe(i));
-        initRecycler(initialData);
 
-         */
-
-        /*
         ImageView image = findViewById(R.id.my_image_view);
         Context context = image.getContext();
 
@@ -92,31 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e("Recetas", "Error al leer datos", databaseError.toException());
             }
         });
-
-         */
-
-
     }
-/*
-    private void initRecycler(ArrayList<Recipe> recipes) {
-        mAdapter = new RecipeAdapter(recipes);
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        binding.recycleView.setLayoutManager(linearLayoutManager);
-        binding.recycleView.setAdapter(mAdapter);
-        mAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Log.d("_TAG", " Item " + position );
-                Toast.makeText(getApplicationContext(), "item " + position,
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
- */
-
 
     @Override
     public void onClick(View v) {

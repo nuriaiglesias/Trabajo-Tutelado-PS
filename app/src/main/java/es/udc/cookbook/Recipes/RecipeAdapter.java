@@ -21,16 +21,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView name, description;
+        public TextView ingredients, image, instructions, title;
         public MyViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.recipe_Name_Tile);
-            description = view.findViewById(R.id.recipe_Description_Tile);
+            ingredients = view.findViewById(R.id.recipe_Name_Tile);
+            image = view.findViewById(R.id.recipe_Description_Tile);
+            instructions = view.findViewById(R.id.recipe_Description_Tile);
+            title = view.findViewById(R.id.recipe_Description_Tile);
             view.setOnClickListener(this);
         }
         public void bind(Recipe article) {
-            name.setText(article.getName());
-            description.setText(article.getDescription());
+            ingredients.setText(article.getIngredients());
+            image.setText(article.getImage());
+            instructions.setText(article.getInstructions());
+            title.setText(article.getTitle());
+
         }
         @Override
         public  void onClick(View view) {
