@@ -26,10 +26,9 @@ public class LoginScreen extends AppCompatActivity{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                startActivity(intent);
                 if(username.getText().toString().equals("user") && password.getText().toString().equals("hola")){
-                    Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-                    startActivity(intent);
-
                     Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginScreen.this, "arolas", Toast.LENGTH_SHORT).show();

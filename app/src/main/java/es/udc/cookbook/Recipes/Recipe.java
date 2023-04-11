@@ -6,7 +6,15 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Recipe implements Parcelable {
-    String ingredients, image, instructions, title, field;
+    public String ingredients, image, instructions, title, field;
+
+    public Recipe(String ingredients, String image, String instructions, String title, String field) {
+        this.ingredients = ingredients;
+        this.image = image;
+        this.instructions = instructions;
+        this.title = title;
+        this.field = field;
+    }
 
     protected Recipe(Parcel in) {
         ingredients = in.readString();
