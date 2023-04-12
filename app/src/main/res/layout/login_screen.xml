@@ -74,6 +74,15 @@
                 android:backgroundTint="@color/green"
                 android:text="@string/loginText"
                 android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/signupText"
+                android:textSize="28sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

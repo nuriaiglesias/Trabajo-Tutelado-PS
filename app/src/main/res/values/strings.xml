@@ -2,6 +2,7 @@
     <string name="app_name">CookBooK</string>
     <string name="title">CookBook</string>
     <string name="loginText">Login</string>
+    <string name="signupText">Signup</string>
     <string name="passwordText">Password</string>
     <string name="usernameText">Username</string>
     <string name="searchText">Search ...</string>
