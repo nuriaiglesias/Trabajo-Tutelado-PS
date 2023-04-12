@@ -46,12 +46,14 @@ public class LoginScreen extends AppCompatActivity{
                         if (nombre.length() == 0|| contrasena.length() == 0) {
                             Toast.makeText(LoginScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
                         } else if(snapshot.exists()){
-                            Usuario usuario = new Usuario(nombre, contrasena);
-                            databaseReference.child(nombre).setValue(usuario);
-
-                            Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(LoginScreen.this, "Acceso exitoso!", Toast.LENGTH_SHORT).show();
+                            String passwordFromDatabase = snapshot.child("contrasena").getValue(String.class);
+                            if (contrasena.equals(passwordFromDatabase)) {
+                                Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(LoginScreen.this, "Acceso exitoso!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginScreen.this, "Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                            }
                         }else {
                             Toast.makeText(LoginScreen.this, "El usuario aún no está registrado", Toast.LENGTH_LONG).show();
                         }
@@ -68,43 +70,9 @@ public class LoginScreen extends AppCompatActivity{
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nombre = username.getText().toString().trim();
-                String contrasena = password.getText().toString().trim();
-
-                databaseReference.child(nombre).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (nombre.length() == 0 || contrasena.length() == 0) {
-                            Toast.makeText(LoginScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
-                        } else if(snapshot.exists()){
-                            Toast.makeText(LoginScreen.this, "El usuario ya está registrado", Toast.LENGTH_LONG).show();
-                        } else {
-                            // Registro de datos en la BD
-                            Usuario usuario = new Usuario(nombre, contrasena);
-                            databaseReference.child(nombre).setValue(usuario);
-
-                            Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(LoginScreen.this, "Registro exitoso!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(LoginScreen.this, "Error al leer la base de datos", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Intent intent = new Intent(LoginScreen.this, SignupScreen.class);
+                startActivity(intent);
             }
         });
-    }
-
-    public static class Usuario {
-        public String nombre;
-        public String contrasena;
-
-        public Usuario(String nombre, String contrasena) {
-            this.nombre = nombre;
-            this.contrasena = contrasena;
-        }
     }
 }
