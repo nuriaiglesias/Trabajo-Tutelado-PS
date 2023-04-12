@@ -26,77 +26,79 @@
         android:background="@drawable/custom_edittext"
         app:cardCornerRadius="50dp"
         app:cardElevation="20dp">
-
-        <EditText
-            android:id="@+id/email"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_email_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/emailText"
-            android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="25dp">
 
-        <EditText
-            android:id="@+id/usernameSignup"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="110dp"
-            android:background="@drawable/custom_edittext"
-            android:layout_marginHorizontal="30dp"
-            android:drawableStart="@drawable/ic_baseline_person_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/usernameText"
-            android:inputType="textPersonName"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_email_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/emailText"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
 
-        <EditText
-            android:id="@+id/passwordSignup"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="170dp"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/passwordText"
-            android:inputType="textPassword"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+            <EditText
+                android:id="@+id/usernameSignup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/usernameText"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
 
-        <EditText
-            android:id="@+id/password2Signup"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="230dp"
-            android:layout_marginHorizontal="30dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/password2Text"
-            android:inputType="textPassword"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+            <EditText
+                android:id="@+id/passwordSignup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/passwordText"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
 
-        <Button
-            android:id="@+id/signupButtonScreen"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="30dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginBottom="60dp"
-            android:backgroundTint="@color/green"
-            android:text="@string/signupText"
-            android:textSize="28sp" />
+            <EditText
+                android:id="@+id/password2Signup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawablePadding="8dp"
+                android:hint="@string/password2Text"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
+
+            <Button
+                android:id="@+id/signupButtonScreen"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/signupText"
+                android:textSize="28sp" />
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 
