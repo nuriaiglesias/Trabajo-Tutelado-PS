@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -69,19 +70,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         holder.title.setText(recipesList.get(position).getTitle());
         //ImageView
-        System.out.println("posicion " +position + "tamaño lista" + recipesList.size());
-        //esto es provisional
-        if (position < 21) {
+        if (position < recipesList.size()) {
             Recipe recipe = recipesList.get(position);
             if (!recipe.isImageLoaded()) { // cargar la imagen solo si aún no se ha cargado
                 storageRef.child(recipe.getImage()).getDownloadUrl().addOnSuccessListener(uri -> {
                     if (uri != null) {
                         Glide.with(mContext)
                                 .load(uri)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .into(holder.image);
                         recipe.setImageLoaded(true); // indicar que la imagen se ha cargado
-                        notifyDataSetChanged(); // notificar al adaptador que los datos han cambiado
                     }
                 }).addOnFailureListener(e -> Log.d("RecipeAdapter", "position " + position + " is out of range for imageList size " + recipesList.size()));
             }
@@ -89,13 +86,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             Log.d("RecipeAdapter", "position " + position + " is out of range for imageList size " + recipesList.size());
         }
     }
-        /*StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
-
-        Glide.with(mContext)
-                .load(recipesList.get(position).getImage())
-               .into(holder.image);
-
-         */
 
     @Override
     public int getItemCount() {

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     //Firebase
     private DatabaseReference ref;
     private RecipeAdapter recipeAdapter;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,38 +52,17 @@ public class MainActivity extends AppCompatActivity {
         recipes = new ArrayList<>();
         
         GetDataFromFirebase();
-        
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    String key = snapshot.getKey();
-                    String ingredients = snapshot.child("Cleaned_Ingredients").getValue(String.class);
-                    String image = snapshot.child("Imagen_Name").getValue(String.class);
-                    String instructions = snapshot.child("Instructions").getValue(String.class);
-                    String title = snapshot.child("Title").getValue(String.class);
-                    Recipe recipe = new Recipe(ingredients, image, instructions, title, key);
-                    recipes.add(recipe);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Recipes", "Error", databaseError.toException());
-            }
-        });
     }
 
     private void GetDataFromFirebase() {
         Query query = ref.child("Recetas");
-
-
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+
                 ClearAll();
                 for(DataSnapshot snapshot : datasnapshot.getChildren()){
+                    count++ ;
                     Recipe recipe = new Recipe();
                     recipe.setImage(snapshot.child("Image_Name").getValue().toString());
                     recipe.setTitle(snapshot.child("Title").getValue().toString());
