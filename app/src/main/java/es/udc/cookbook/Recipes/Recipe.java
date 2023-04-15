@@ -1,12 +1,8 @@
 package es.udc.cookbook.Recipes;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
-public class Recipe implements Parcelable {
+public class Recipe {
     public String ingredients, image, instructions, title, field;
+    Boolean imageLoaded = false;
 
     public Recipe(String ingredients, String image, String instructions, String title, String field) {
         this.ingredients = ingredients;
@@ -16,42 +12,15 @@ public class Recipe implements Parcelable {
         this.field = field;
     }
 
-    protected Recipe(Parcel in) {
-        ingredients = in.readString();
-        image = in.readString();
-        instructions = in.readString();
-        title = in.readString();
-        field = in.readString();
+    public Recipe(String title, String image) {
+        this.image = image;
+        this.title = title;
     }
 
+    public Recipe() {
 
-
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(ingredients);
-        dest.writeString(image);
-        dest.writeString(instructions);
-        dest.writeString(title);
-        dest.writeString(field);
-    }
 
     public String getIngredients() {
         return ingredients;
@@ -66,7 +35,7 @@ public class Recipe implements Parcelable {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = image + ".jpg";
     }
 
     public String getInstructions() {
@@ -89,7 +58,12 @@ public class Recipe implements Parcelable {
         return field;
     }
 
-    public void setField(String field) {
-        this.field = field;
+
+    public boolean isImageLoaded() {
+        return imageLoaded;
+    }
+
+    public void setImageLoaded(boolean imageLoaded) {
+        this.imageLoaded = imageLoaded;
     }
 }
