@@ -9,7 +9,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
+import androidx.appcompat.widget.SearchView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import es.udc.cookbook.Recipes.Recipe;
 import es.udc.cookbook.Recipes.RecipeAdapter;
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private RecipeAdapter recipeAdapter;
     int count = 0;
-
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         recipes = new ArrayList<>();
         
         GetDataFromFirebase();
+
+        // Barra de búsqueda
+        searchView = findViewById(R.id.searchView);
     }
 
     private void GetDataFromFirebase() {
@@ -71,6 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
                 recyclerView.setAdapter(recipeAdapter);
                 recipeAdapter.notifyDataSetChanged();
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String s) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        if (s.isEmpty()) {
+                            GetDataFromFirebase();
+                        } else {
+                            search(s);
+                        }
+                        return true;
+                    }
+                });
             }
 
             @Override
@@ -78,10 +101,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
+    public void filterList(ArrayList<Recipe> filteredList) {
+        recipes.clear();
+        recipes.addAll(filteredList);
+        recipeAdapter.notifyDataSetChanged();
+    }
+    private void search(String searchText) {
+        ArrayList<Recipe> filteredList = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            if (recipe.getTitle().toLowerCase(Locale.getDefault()).contains(searchText.toLowerCase(Locale.getDefault()))) {
+                filteredList.add(recipe);
+            }
+        }
+        filterList(filteredList);
+    }
+
     private void ClearAll(){
         if(recipes != null){
             recipes.clear();
@@ -90,6 +125,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         recipes = new ArrayList<>();
-
     }
 }

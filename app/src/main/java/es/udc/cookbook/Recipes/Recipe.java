@@ -1,8 +1,11 @@
 package es.udc.cookbook.Recipes;
 
+import java.util.List;
+
 public class Recipe {
     public String ingredients, image, instructions, title, field;
     Boolean imageLoaded = false;
+    String imageUrl;
 
     public Recipe(String ingredients, String image, String instructions, String title, String field) {
         this.ingredients = ingredients;
