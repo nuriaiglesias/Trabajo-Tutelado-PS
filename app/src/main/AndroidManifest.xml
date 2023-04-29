@@ -30,6 +30,8 @@
                 android:value="" />
         </activity>
         <activity android:name=".SignupScreen" />
+        <activity android:name=".UserRecipes" />
+        <activity android:name=".LikedRecipes" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
             </activity>

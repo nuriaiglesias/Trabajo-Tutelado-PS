@@ -8,4 +8,7 @@
     <string name="usernameText">Username</string>
     <string name="searchText">Search ...</string>
     <string name="emailText">Email</string>
+    <string name="mis_recetas">Mis recetas</string>
+    <string name="recetas_favoritas">Recetas favoritas</string>
+    <string name="explorar_recetas">Explorar</string>
 </resources>

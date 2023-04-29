@@ -24,7 +24,6 @@ public class SignupScreen extends AppCompatActivity {
     Button SignupButton;
     DatabaseReference databaseReference;
 
-    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

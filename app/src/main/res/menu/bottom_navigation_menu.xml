@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mis_recetas"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/mis_recetas" />
+    <item
+        android:id="@+id/explorar_recetas"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/explorar_recetas" />
+    <item
+        android:id="@+id/recetas_guardadas"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/recetas_favoritas" />
+</menu>
