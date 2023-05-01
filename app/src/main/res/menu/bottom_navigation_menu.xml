@@ -10,6 +10,6 @@
         android:title="@string/explorar_recetas" />
     <item
         android:id="@+id/recetas_guardadas"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/baseline_favorite_24"
         android:title="@string/recetas_favoritas" />
 </menu>
