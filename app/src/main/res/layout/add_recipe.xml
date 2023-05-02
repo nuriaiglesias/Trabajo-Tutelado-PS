@@ -98,11 +98,6 @@
             android:onClick="selectImage"
             android:text="Select Image" />
 
-        <ImageView
-            android:id="@+id/imageNewRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/addRecipe"
             android:layout_width="match_parent"
