@@ -121,17 +121,12 @@ public class AddRecipe extends AppCompatActivity {
                     uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // La imagen ha sido cargada exitosamente en Firebase Storage
-                            // Puedes obtener la URL de descarga de la imagen utilizando la siguiente línea de código:
                             Toast.makeText(AddRecipe.this, "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
-                            // Ahora puedes guardar la URL de descarga en la base de datos de Firebase Realtime Database
-                            // junto con los demás detalles de la receta
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Se produjo un error al cargar la imagen en Firebase Storage
-                            // Maneja el error aquí
                             Toast.makeText(AddRecipe.this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
                         }
                     });
