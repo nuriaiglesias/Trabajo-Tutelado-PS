@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmain"
-    tools:context=".MainActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -51,6 +50,7 @@
         android:backgroundTint="@color/purple_500"
         android:text="@string/createRecipeText"
         android:textSize="28sp"
+        android:onClick="createRecipe"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

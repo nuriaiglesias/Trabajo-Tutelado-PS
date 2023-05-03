@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/backgroundmain"
-    tools:context=".MainActivity">
+    android:background="@drawable/backgroundmain">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -37,6 +36,7 @@
             android:backgroundTint="@color/purple_500"
             android:text="@string/goBackText"
             android:textSize="28sp"
+            android:onClick="onBack"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText

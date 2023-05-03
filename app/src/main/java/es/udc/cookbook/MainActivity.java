@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intentMisRecetas);
                         return true;
                     case R.id.explorar_recetas:
+                        Toast.makeText(getApplicationContext(), "Ya estás en la pantalla de explorar", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.recetas_guardadas:
                         // Abrir pantalla de visualización de recetas guardadas por el usuario

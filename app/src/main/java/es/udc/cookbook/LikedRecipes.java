@@ -3,6 +3,7 @@ package es.udc.cookbook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,11 @@ public class LikedRecipes extends AppCompatActivity {
                     case R.id.explorar_recetas:
                         Intent intentExplorar = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intentExplorar);
+                        return true;
+                    case R.id.recetas_guardadas:
+                        // Abrir pantalla de visualización de recetas guardadas por el usuario
+                        Toast.makeText(getApplicationContext(), "Ya estás en la pantalla de recetas guardadas", Toast.LENGTH_SHORT).show();
+                        return true;
                 }
                 return false;
             }
