@@ -105,6 +105,7 @@
             android:backgroundTint="@color/purple_500"
             android:labelFor="@id/ingredientsNewRecipe"
             android:text="@string/addRecipeText"
+            android:onClick="addRecipe"
             android:textSize="28sp" />
 
     </LinearLayout>

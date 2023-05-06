@@ -1,8 +1,6 @@
 package es.udc.cookbook.Recipes;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -73,7 +69,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         if (position < recipesList.size()) {
             Recipe recipe = recipesList.get(position);
             if (!recipe.isImageLoaded()) { // cargar la imagen solo si aún no se ha cargado
-                storageRef.child(recipe.getImage()).getDownloadUrl().addOnSuccessListener(uri -> {
+                storageRef.child(recipe.getImageName()).getDownloadUrl().addOnSuccessListener(uri -> {
                     if (uri != null) {
                         Glide.with(mContext)
                                 .load(uri)

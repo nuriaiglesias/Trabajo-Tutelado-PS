@@ -1,22 +1,19 @@
 package es.udc.cookbook.Recipes;
 
-import java.util.List;
-
 public class Recipe {
-    public String ingredients, image, instructions, title, field;
+    private String cleanedIngredients, imageName, instructions, title, field;
     Boolean imageLoaded = false;
-    String imageUrl;
 
-    public Recipe(String ingredients, String image, String instructions, String title, String field) {
-        this.ingredients = ingredients;
-        this.image = image;
+    public Recipe(String cleanedIngredients, String imageName, String instructions, String title, String field) {
+        this.cleanedIngredients = cleanedIngredients;
+        this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
         this.field = field;
     }
 
-    public Recipe(String title, String image) {
-        this.image = image;
+    public Recipe(String title, String imageName) {
+        this.imageName = imageName;
         this.title = title;
     }
 
@@ -24,49 +21,47 @@ public class Recipe {
 
     }
 
-
-    public String getIngredients() {
-        return ingredients;
+    public String getCleanedIngredients() {
+        return cleanedIngredients;
     }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+    public void setCleanedIngredients(String Cleaned_Ingredients) {
+        this.cleanedIngredients = Cleaned_Ingredients;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImage(String image) {
-        this.image = image + ".jpg";
+    public void setImageName(String Image_Name) {
+        this.imageName = Image_Name + ".jpg";
     }
 
     public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setInstructions(String ins) {
+        this.instructions = ins;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String Title) {
+        this.title = Title;
     }
 
     public String getField() {
         return field;
     }
 
-
     public boolean isImageLoaded() {
         return imageLoaded;
     }
 
-    public void setImageLoaded(boolean imageLoaded) {
-        this.imageLoaded = imageLoaded;
+    public void setImageLoaded(boolean ImageLoaded) {
+        this.imageLoaded = ImageLoaded;
     }
 }
