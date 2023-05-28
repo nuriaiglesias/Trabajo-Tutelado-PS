@@ -34,6 +34,7 @@
         <activity android:name=".UserRecipes" />
         <activity android:name=".LikedRecipes" />
         <activity android:name=".AddRecipe" />
+        <activity android:name=".Recipes.RecipeDetail" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan" />

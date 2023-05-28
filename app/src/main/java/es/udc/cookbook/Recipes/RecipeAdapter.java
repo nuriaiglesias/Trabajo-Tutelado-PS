@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import es.udc.cookbook.R;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
     private final ArrayList<Recipe> recipesList;
-    private Context mContext;
+    private final Context mContext;
 
     public RecipeAdapter(Context mContext, ArrayList<Recipe> mDataset) {
         this.mContext = mContext;
