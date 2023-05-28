@@ -1,11 +1,11 @@
 package es.udc.cookbook.Recipes;
 
 public class Recipe {
-    private String cleanedIngredients, imageName, instructions, title, field;
+    private String ingredients, imageName, instructions, title, field;
     Boolean imageLoaded = false;
 
-    public Recipe(String cleanedIngredients, String imageName, String instructions, String title, String field) {
-        this.cleanedIngredients = cleanedIngredients;
+    public Recipe(String ingredients, String imageName, String instructions, String title, String field) {
+        this.ingredients = ingredients;
         this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
@@ -21,12 +21,12 @@ public class Recipe {
 
     }
 
-    public String getCleanedIngredients() {
-        return cleanedIngredients;
+    public String getIngredients() {
+        return ingredients;
     }
 
-    public void setCleanedIngredients(String Cleaned_Ingredients) {
-        this.cleanedIngredients = Cleaned_Ingredients;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getImageName() {

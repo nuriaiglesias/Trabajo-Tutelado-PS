@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -86,17 +87,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
-                ClearAll();
                 for(DataSnapshot snapshot : datasnapshot.getChildren()){
                     count++ ;
                     Recipe recipe = new Recipe();
                     recipe.setImageName(Objects.requireNonNull(snapshot.child("imageName").getValue()).toString());
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
+                    recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
+                    recipe.setIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
                     recipes.add(recipe);
                 }
+                // Asigna un LinearLayoutManager al RecyclerView
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
                 recyclerView.setAdapter(recipeAdapter);
-                recipeAdapter.notifyDataSetChanged();
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {
