@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -28,6 +29,7 @@ import java.util.Objects;
 
 import es.udc.cookbook.Recipes.Recipe;
 import es.udc.cookbook.Recipes.RecipeAdapter;
+import es.udc.cookbook.Recipes.RecipeDetail;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -96,11 +98,22 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
                     recipes.add(recipe);
                 }
-                // Asigna un LinearLayoutManager al RecyclerView
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
                 recyclerView.setAdapter(recipeAdapter);
+
+                recipeAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Log.d("_TAG", " Item " + recipes.get(position).imageName );
+                        Toast.makeText(getApplicationContext(), "item " +  recipes.get(position).imageName , Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, RecipeDetail.class);
+                        intent.putExtra("title", recipes.get(position).title);
+                        intent.putExtra("image", recipes.get(position).imageName);
+                        intent.putExtra("instructions", recipes.get(position).instructions);
+                        intent.putExtra("ingredients", recipes.get(position).ingredients);
+                        startActivity(intent);
+                    }
+                });
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {

@@ -1,7 +1,7 @@
 package es.udc.cookbook.Recipes;
 
 public class Recipe {
-    private String ingredients, imageName, instructions, title, field;
+    public String ingredients, imageName, instructions, title, field;
     Boolean imageLoaded = false;
 
     public Recipe(String ingredients, String imageName, String instructions, String title, String field) {
