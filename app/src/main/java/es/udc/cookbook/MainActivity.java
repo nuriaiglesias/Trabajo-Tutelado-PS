@@ -152,13 +152,4 @@ public class MainActivity extends AppCompatActivity {
         filterList(filteredList);
     }
 
-    private void ClearAll(){
-        if(recipes != null){
-            recipes.clear();
-            if(recipeAdapter != null){
-                recipeAdapter.notifyDataSetChanged();
-            }
-        }
-        recipes = new ArrayList<>();
-    }
 }
