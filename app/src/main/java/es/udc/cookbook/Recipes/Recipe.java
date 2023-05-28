@@ -9,12 +9,11 @@ public class Recipe {
     public Uri uriRecipe = null;
     Boolean imageLoaded = false;
 
-    public Recipe(String ingredients, String imageName, String instructions, String title, String field) {
+    public Recipe(String ingredients, String imageName, String instructions, String title) {
         this.ingredients = ingredients;
         this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
-        this.field = field;
     }
 
     public Recipe(String title, String imageName, Uri uriRecipe) {
@@ -79,4 +78,5 @@ public class Recipe {
         this.uriRecipe = uriRecipe;
 
     }
+
 }

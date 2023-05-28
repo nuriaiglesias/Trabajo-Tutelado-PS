@@ -185,7 +185,7 @@ public class AddRecipe extends AppCompatActivity {
                                 Toast.makeText(AddRecipe.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
                             }else{
                                 // Registro de datos en la BD
-                                Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,null);
+                                Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo);
                                 receta.setImageLoaded(true);
                                 databaseReference.child(titulo).setValue(receta);
                                 Toast.makeText(AddRecipe.this,"Receta añadida",Toast.LENGTH_LONG).show();

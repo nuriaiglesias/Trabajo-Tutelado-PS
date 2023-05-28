@@ -18,7 +18,7 @@
         android:theme="@style/Theme.CookBooK"
         tools:targetApi="31">
         <activity
-            android:name=".LoginScreen"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
         <activity android:name=".LikedRecipes" />
         <activity android:name=".AddRecipe" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginScreen"
             android:windowSoftInputMode="adjustPan" />
     </application>
 

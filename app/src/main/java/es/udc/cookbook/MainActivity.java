@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -33,12 +35,11 @@ import es.udc.cookbook.Recipes.RecipeDetail;
 
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Recipe> recipes;
+    public ArrayList<Recipe> recipes = new ArrayList<>();
     RecyclerView recyclerView;
     //Firebase
     private DatabaseReference ref;
     private RecipeAdapter recipeAdapter;
-    int count = 0;
     SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         // Firebase
         ref = FirebaseDatabase.getInstance().getReference();
 
-        recipes = new ArrayList<>();
-
         // Barra de búsqueda
         searchView = findViewById(R.id.searchView);
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.explorar_recetas);
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
                 for(DataSnapshot snapshot : datasnapshot.getChildren()){
-                    count++ ;
                     Recipe recipe = new Recipe();
                     recipe.setImageName(Objects.requireNonNull(snapshot.child("imageName").getValue()).toString());
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
@@ -104,13 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 recipeAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Log.d("_TAG", " Item " + recipes.get(position).imageName );
-                        Toast.makeText(getApplicationContext(), "item " +  recipes.get(position).imageName , Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, RecipeDetail.class);
                         intent.putExtra("title", recipes.get(position).title);
-                        intent.putExtra("image", recipes.get(position).imageName);
                         intent.putExtra("instructions", recipes.get(position).instructions);
                         intent.putExtra("ingredients", recipes.get(position).ingredients);
+                        intent.putExtra("image", recipes.get(position).uriRecipe.toString());
                         startActivity(intent);
                     }
                 });
