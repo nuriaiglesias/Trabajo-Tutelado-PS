@@ -18,4 +18,5 @@
     <string name="ingredientsNewRecipe">Ingredients</string>
     <string name="instructionNewRecipe">Instruction</string>
     <string name="imageNewRecipe">Name of the image</string>
+    <string name="singup">Not yet registered? SingUp now</string>
 </resources>
