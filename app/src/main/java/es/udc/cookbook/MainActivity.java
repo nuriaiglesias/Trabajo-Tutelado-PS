@@ -5,28 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.widget.SearchView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import es.udc.cookbook.Recipes.Recipe;
 import es.udc.cookbook.Recipes.RecipeAdapter;
@@ -34,14 +33,13 @@ import es.udc.cookbook.Recipes.RecipeDetail;
 
 
 public class MainActivity extends AppCompatActivity {
-    private final ArrayList<Recipe> recipes = new ArrayList<>();
-
+    private ArrayList<Recipe> recipes;
     RecyclerView recyclerView;
     //Firebase
     private DatabaseReference ref;
     private RecipeAdapter recipeAdapter;
-
-
+    int count = 0;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,22 +51,51 @@ public class MainActivity extends AppCompatActivity {
 
         // Firebase
         ref = FirebaseDatabase.getInstance().getReference();
+
+        recipes = new ArrayList<>();
+
+        // Barra de búsqueda
+        searchView = findViewById(R.id.searchView);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.explorar_recetas);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.mis_recetas:
+                        // Abrir pantalla de visualización de recetas creadas por el usuario
+                        Intent intentMisRecetas = new Intent(getApplicationContext(), UserRecipes.class);
+                        startActivity(intentMisRecetas);
+                        return true;
+                    case R.id.explorar_recetas:
+                        Toast.makeText(getApplicationContext(), "Ya estás en la pantalla de explorar", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.recetas_guardadas:
+                        // Abrir pantalla de visualización de recetas guardadas por el usuario
+                        Intent intentRecetasGuardadas = new Intent(getApplicationContext(), LikedRecipes.class);
+                        startActivity(intentRecetasGuardadas);
+                        return true;
+                }
+                return false;
+            }
+        });
+
         GetDataFromFirebase();
     }
-
     private void GetDataFromFirebase() {
         Query query = ref.child("Recetas");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+
                 for(DataSnapshot snapshot : datasnapshot.getChildren()){
+                    count++ ;
                     Recipe recipe = new Recipe();
-                    recipe.setImage(snapshot.child("Image_Name").getValue().toString());
-                    System.out.println(snapshot.child("Image_Name").getValue().toString());
-                    Log.d("_tag", " imagen" + snapshot.child("Image_Name").getValue().toString());
-                    recipe.setTitle(snapshot.child("Title").getValue().toString());
-                    recipe.setInstructions(snapshot.child("Instructions").getValue().toString());
-                    recipe.setIngredients(snapshot.child("Cleaned_Ingredients").getValue().toString());
+                    recipe.setImageName(Objects.requireNonNull(snapshot.child("imageName").getValue()).toString());
+                    recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
+                    recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
+                    recipe.setIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
                     recipes.add(recipe);
                 }
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
@@ -77,15 +104,29 @@ public class MainActivity extends AppCompatActivity {
                 recipeAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Log.d("_TAG", " Item " + recipes.get(position).image );
-                        Toast.makeText(getApplicationContext(), "item " +  recipes.get(position).image ,
-                                Toast.LENGTH_SHORT).show();
+                        Log.d("_TAG", " Item " + recipes.get(position).imageName );
+                        Toast.makeText(getApplicationContext(), "item " +  recipes.get(position).imageName , Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, RecipeDetail.class);
                         intent.putExtra("title", recipes.get(position).title);
-                        intent.putExtra("image", recipes.get(position).image);
+                        intent.putExtra("image", recipes.get(position).imageName);
                         intent.putExtra("instructions", recipes.get(position).instructions);
                         intent.putExtra("ingredients", recipes.get(position).ingredients);
                         startActivity(intent);
+                    }
+                });
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String s) {
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        if (s.isEmpty()) {
+                            GetDataFromFirebase();
+                        } else {
+                            search(s);
+                        }
+                        return true;
                     }
                 });
             }
@@ -95,7 +136,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+    }
+    public void filterList(ArrayList<Recipe> filteredList) {
+        recipes.clear();
+        recipes.addAll(filteredList);
+        //recipeAdapter.notifyDataSetChanged();
+    }
+    private void search(String searchText) {
+        ArrayList<Recipe> filteredList = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            if (recipe.getTitle().toLowerCase(Locale.getDefault()).contains(searchText.toLowerCase(Locale.getDefault()))) {
+                filteredList.add(recipe);
+            }
+        }
+        filterList(filteredList);
     }
 
 }

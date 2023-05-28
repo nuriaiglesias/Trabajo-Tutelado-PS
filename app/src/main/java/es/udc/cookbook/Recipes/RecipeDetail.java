@@ -1,25 +1,21 @@
 package es.udc.cookbook.Recipes;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import es.udc.cookbook.R;
 
 public class RecipeDetail extends AppCompatActivity {
-    private TextView titleDt, ingredientsDt, instructionsDt;
-    private ImageView imageDt;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
 
-        titleDt = findViewById(R.id.TitleDetail);
-        ingredientsDt = findViewById(R.id.IngredientsDetail);
-        instructionsDt = findViewById(R.id.InstructionsDetail);
-        imageDt = findViewById(R.id.ImageDetail);
+        TextView titleDt = findViewById(R.id.TitleDetail);
+        TextView ingredientsDt = findViewById(R.id.IngredientsDetail);
+        TextView instructionsDt = findViewById(R.id.InstructionsDetail);
+        ImageView imageDt = findViewById(R.id.ImageDetail);
 
         String title = getIntent().getStringExtra("title");
         String ingredients = getIntent().getStringExtra("ingredients");

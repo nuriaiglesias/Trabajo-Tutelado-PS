@@ -1,8 +1,6 @@
 package es.udc.cookbook.Recipes;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import es.udc.cookbook.R;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
     private final ArrayList<Recipe> recipesList;
-    private Context mContext;
+    private final Context mContext;
 
     public RecipeAdapter(Context mContext, ArrayList<Recipe> mDataset) {
         this.mContext = mContext;
@@ -68,24 +66,28 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
+        Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
         //ImageView
-        if (position < recipesList.size()) {
-            Recipe recipe = recipesList.get(position);
-            if (!recipe.isImageLoaded()) { // cargar la imagen solo si aún no se ha cargado
-                storageRef.child(recipe.getImage()).getDownloadUrl().addOnSuccessListener(uri -> {
-                    if (uri != null) {
-                        Glide.with(mContext)
-                                .load(uri)
-                                .into(holder.image);
-                        recipe.setImageLoaded(true); // indicar que la imagen se ha cargado
-                    }
-                }).addOnFailureListener(e -> Log.d("RecipeAdapter", "position " + position + " is out of range for imageList size " + recipesList.size()));
-            }
+        if (!recipe.isImageLoaded()) { // cargar la imagen solo si aún no se ha cargado
+            storageRef.child(recipe.imageName).getDownloadUrl().addOnSuccessListener(uri -> {
+                if (uri != null) {
+                    Glide.with(mContext)
+                            .load(uri)
+                            .into(holder.image);
+                    recipe.setImageLoaded(true);
+                    recipe.setUriRecipe(uri);
+                }
+            }).addOnFailureListener(e -> Log.d("RecipeAdapter", "Failed to load image for position " + position));
+        } else if (recipe.isUriRecipe()) {
+            Glide.with(mContext)
+                    .load(recipe.uriRecipe)
+                    .into(holder.image);
         } else {
-            Log.d("RecipeAdapter", "position " + position + " is out of range for imageList size " + recipesList.size());
+            Log.d("RecipeAdapter", "No image found for position " + position);
         }
     }
+
 
     @Override
     public int getItemCount() {
@@ -93,5 +95,3 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     }
 
 }
-
-
