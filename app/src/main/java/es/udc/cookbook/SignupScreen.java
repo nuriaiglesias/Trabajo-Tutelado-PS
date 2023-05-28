@@ -2,6 +2,7 @@ package es.udc.cookbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class SignupScreen extends AppCompatActivity {
     EditText email, username, password, password2;
     Button SignupButton;
     DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,9 @@ public class SignupScreen extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (correo.length() == 0|| nombre.length() == 0 || contrasena.length() == 0 || contrasena2.length() == 0) {
                             Toast.makeText(SignupScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
-                        } else if(snapshot.exists()){
+                        }else if(!Patterns.EMAIL_ADDRESS.matcher(correo).matches()){
+                            Toast.makeText(SignupScreen.this, "Por favor ingrese un correo electrónico válido", Toast.LENGTH_SHORT).show();
+                        }else if(snapshot.exists()){
                             Toast.makeText(SignupScreen.this, "El usuario ya está usado, cambie por otro por favor", Toast.LENGTH_LONG).show();
                         }else if(!contrasena.equals(contrasena2)){
                             Toast.makeText(SignupScreen.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();

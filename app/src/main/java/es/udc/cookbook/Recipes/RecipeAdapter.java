@@ -16,8 +16,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import es.udc.cookbook.R;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
@@ -80,9 +78,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
                 }
             }).addOnFailureListener(e -> Log.d("RecipeAdapter", "Failed to load image for position " + position));
         } else if (recipe.isUriRecipe()) {
+
             Glide.with(mContext)
                     .load(recipe.uriRecipe)
                     .into(holder.image);
+
+                    Glide.with(mContext)
+                            .load(recipe.uriRecipe)
+                            .into(holder.image);
         } else {
             Log.d("RecipeAdapter", "No image found for position " + position);
         }
