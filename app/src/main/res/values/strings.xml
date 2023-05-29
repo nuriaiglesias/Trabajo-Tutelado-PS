@@ -19,4 +19,9 @@
     <string name="instructionNewRecipe">Instruction</string>
     <string name="imageNewRecipe">Name of the image</string>
     <string name="singup">Not yet registered? SingUp now</string>
+    <string name="logo">CookBook</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="description">Description</string>
+    <string name="details">Details</string>
+    <string name="ingredients1">Ingredients</string>
 </resources>

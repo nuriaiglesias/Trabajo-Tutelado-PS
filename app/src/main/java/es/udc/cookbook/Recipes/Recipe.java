@@ -1,3 +1,5 @@
+
+
 package es.udc.cookbook.Recipes;
 
 import android.net.Uri;
@@ -76,6 +78,7 @@ public class Recipe {
 
     public void setImageLoaded(boolean ImageLoaded) {
         this.imageLoaded = ImageLoaded;
+
     }
 
     public boolean isUriRecipe() {
@@ -83,5 +86,7 @@ public class Recipe {
     }
     public void setUriRecipe(Uri uriRecipe) {
         this.uriRecipe = uriRecipe;
+
     }
+
 }

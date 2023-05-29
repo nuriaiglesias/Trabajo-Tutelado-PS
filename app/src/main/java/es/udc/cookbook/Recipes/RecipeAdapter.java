@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     private final ArrayList<Recipe> recipesList;
     private final ArrayList<Recipe> recipeListFull;
     private final Context mContext;
+    boolean isLiked = false;
+
 
     public RecipeAdapter(Context mContext, ArrayList<Recipe> mDataset) {
         this.mContext = mContext;
@@ -39,11 +42,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
         public ImageView image;
+        public  ImageButton fav;
 
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.txtTitle);
             image = view.findViewById(R.id.imageViewRecipe);
+            fav = view.findViewById(R.id.likeButtonlist);
             view.setOnClickListener(this);
         }
 
@@ -63,10 +68,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         clickListener = itemClickListener;
     }
 
+
+
     @NonNull
     @Override
     public RecipeAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_tile, parent, false);
+
         return new MyViewHolder(v);
     }
 
@@ -75,6 +83,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
+
+        ImageButton likeButtonList = holder.fav;
+        likeButtonList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLiked = !isLiked;
+                if (isLiked) {
+                    likeButtonList.setImageResource(R.drawable.ic_active_like);
+                } else {
+                    likeButtonList.setImageResource(R.drawable.ic_inactive_like);
+                }
+            }
+        });
         //ImageView
         if (!recipe.isImageLoaded()) { // cargar la imagen solo si aún no se ha cargado
             storageRef.child(recipe.imageName).getDownloadUrl().addOnSuccessListener(uri -> {
@@ -87,9 +108,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
                 }
             }).addOnFailureListener(e -> Log.d("RecipeAdapter", "Failed to load image for position " + position));
         } else if (recipe.isUriRecipe()) {
-                    Glide.with(mContext)
-                            .load(recipe.uriRecipe)
-                            .into(holder.image);
+            Glide.with(mContext)
+                    .load(recipe.uriRecipe)
+                    .into(holder.image);
+            System.out.println(recipe.uriRecipe);
         } else {
             Log.d("RecipeAdapter", "No image found for position " + position);
         }
@@ -104,10 +126,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
 
     @Override
     public Filter getFilter() {
-        return exampleFilter;
+        return recipeFilter;
     }
 
-    private Filter exampleFilter = new Filter() {
+    private final Filter recipeFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Recipe> filteredList = new ArrayList<>();
@@ -139,5 +161,3 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     };
 
 }
-
-

@@ -7,6 +7,38 @@
     android:layout_margin="10dp"
     android:orientation="vertical">
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
+        android:layout_gravity="bottom"
+        tools:ignore="BottomAppBar">
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="cursive"
+            android:text="@string/logo"
+            android:textColor="@color/pink"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/likeButton"
+            android:src="@drawable/ic_inactive_like"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +47,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+
+
+
+
             <ImageView
                 android:id="@+id/ImageDetail"
                 android:layout_width="match_parent"
@@ -22,22 +58,31 @@
 
             <TextView
                 android:id="@+id/TitleDetail"
-                android:textSize="26sp"
-                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/IngredientsDetail"
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationViewRecipies"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycleView"
+                app:menu="@menu/recipies_menu" />
 
             <TextView
-                android:id="@+id/InstructionsDetail"
+                android:id="@+id/RecipeInfo"
                 android:layout_width="match_parent"
+                android:paddingTop="20dp"
                 android:layout_height="wrap_content" />
+
 
         </LinearLayout>
     </ScrollView>
+
+
 
 </LinearLayout>
