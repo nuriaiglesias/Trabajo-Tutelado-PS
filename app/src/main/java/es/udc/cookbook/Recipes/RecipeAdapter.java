@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,17 +18,22 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import es.udc.cookbook.R;
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> implements Filterable {
     private final ArrayList<Recipe> recipesList;
+    private final ArrayList<Recipe> recipeListFull;
     private final Context mContext;
 
     public RecipeAdapter(Context mContext, ArrayList<Recipe> mDataset) {
         this.mContext = mContext;
         this.recipesList = mDataset;
+        recipeListFull = new ArrayList<>(recipesList);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -93,6 +100,43 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     public int getItemCount() {
         return recipesList.size();
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Recipe> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(recipeListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Recipe recipe : recipeListFull) {
+                    if (recipe.getTitle().toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                        filteredList.add(recipe);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            recipesList.clear();
+            recipesList.addAll((Collection<? extends Recipe>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 }
 

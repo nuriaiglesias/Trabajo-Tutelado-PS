@@ -121,11 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public boolean onQueryTextChange(String s) {
-                        if (s.isEmpty()) {
-                            GetDataFromFirebase();
-                        } else {
-                            search(s);
-                        }
+                        recipeAdapter.getFilter().filter(s);
                         return true;
                     }
                 });
@@ -136,20 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-    public void filterList(ArrayList<Recipe> filteredList) {
-        recipes.clear();
-        recipes.addAll(filteredList);
-        //recipeAdapter.notifyDataSetChanged();
-    }
-    private void search(String searchText) {
-        ArrayList<Recipe> filteredList = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            if (recipe.getTitle().toLowerCase(Locale.getDefault()).contains(searchText.toLowerCase(Locale.getDefault()))) {
-                filteredList.add(recipe);
-            }
-        }
-        filterList(filteredList);
     }
 
 }
