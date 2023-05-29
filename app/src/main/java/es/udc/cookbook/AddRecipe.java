@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -184,10 +185,16 @@ public class AddRecipe extends AppCompatActivity {
                             if (titulo.length() == 0|| ingredientes.length() == 0 || instrucciones.length() == 0 || finalTituloImagen.length() == 0) {
                                 Toast.makeText(AddRecipe.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
                             }else{
-                                // Registro de datos en la BD
-                                Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,null);
-                                receta.setImageLoaded(true);
-                                databaseReference.child(titulo).setValue(receta);
+                                SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
+                                String username = preferences.getString("username", "");
+                                if (!username.isEmpty()) {
+                                    Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,null,username);
+                                    receta.setUriRecipe(uri);
+                                    receta.setImageLoaded(true);
+                                    databaseReference.child(titulo).setValue(receta);
+                                } else {
+                                    Toast.makeText(getApplicationContext(),"No detectado el nombre correctamente", Toast.LENGTH_LONG).show();
+                                }
                                 Toast.makeText(AddRecipe.this,"Receta añadida",Toast.LENGTH_LONG).show();
                             }
                         }

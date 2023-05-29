@@ -3,16 +3,17 @@ package es.udc.cookbook.Recipes;
 import android.net.Uri;
 
 public class Recipe {
-    public String ingredients, imageName, instructions, title, field;
+    public String ingredients, imageName, instructions, title, field, user;
     public Uri uriRecipe = null;
     Boolean imageLoaded = false;
 
-    public Recipe(String ingredients, String imageName, String instructions, String title, String field) {
+    public Recipe(String ingredients, String imageName, String instructions, String title, String field, String user) {
         this.ingredients = ingredients;
         this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
         this.field = field;
+        this.user = user;
     }
 
     public Recipe(String title, String imageName, Uri uriRecipe) {
@@ -25,11 +26,11 @@ public class Recipe {
 
     }
 
-    public String getIngredients() {
+    public String getCleanedIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setCleanedIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -59,6 +60,14 @@ public class Recipe {
 
     public String getField() {
         return field;
+    }
+
+    public void setUser(String User) {
+        this.user = User;
+    }
+
+    public String getUser() {
+        return user;
     }
 
     public boolean isImageLoaded() {

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setImageName(Objects.requireNonNull(snapshot.child("imageName").getValue()).toString());
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
                     recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
-                    recipe.setIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
+                    recipe.setCleanedIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
                     recipes.add(recipe);
                 }
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
