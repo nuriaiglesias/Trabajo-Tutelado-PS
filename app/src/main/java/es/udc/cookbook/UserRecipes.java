@@ -35,7 +35,6 @@ import es.udc.cookbook.Recipes.RecipeAdapter;
 import es.udc.cookbook.Recipes.RecipeDetail;
 
 public class UserRecipes extends AppCompatActivity {
-    StorageReference storageRef = null;
     DatabaseReference ref = null;
     private RecipeAdapter2 recipeAdapter;
     int count = 0;
@@ -114,7 +113,6 @@ public class UserRecipes extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
                         Log.d("_TAG", " Item " + recipes.get(position).imageName);
-                        Toast.makeText(getApplicationContext(), "item " + recipes.get(position).imageName, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(UserRecipes.this, RecipeDetail.class);
                         intent.putExtra("title", recipes.get(position).title);
                         intent.putExtra("image", recipes.get(position).imageName);
@@ -127,13 +125,16 @@ public class UserRecipes extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
     public void createRecipe(View view) {
         Intent intentAddRecipe = new Intent(getApplicationContext(), AddRecipe.class);
         startActivity(intentAddRecipe);
+    }
+    public void settings(View view) {
+        Intent intentSettings = new Intent(getApplicationContext(), Settings.class);
+        startActivity(intentSettings);
     }
 
 }

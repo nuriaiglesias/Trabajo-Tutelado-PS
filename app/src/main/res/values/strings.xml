@@ -8,9 +8,9 @@
     <string name="usernameText">Username</string>
     <string name="searchText">Search ...</string>
     <string name="emailText">Email</string>
-    <string name="mis_recetas">Mis recetas</string>
-    <string name="recetas_favoritas">Recetas favoritas</string>
-    <string name="explorar_recetas">Explorar</string>
+    <string name="mis_recetas">My recipes</string>
+    <string name="recetas_favoritas">Favorite recipes</string>
+    <string name="explorar_recetas">Explore</string>
     <string name="createRecipeText">Create Recipe</string>
     <string name="addRecipeText">Add recipe</string>
     <string name="goBackText">Cancel</string>
@@ -24,4 +24,10 @@
     <string name="description">Description</string>
     <string name="details">Details</string>
     <string name="ingredients1">Ingredients</string>
+    <string name="settings">Settings</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="saveText">Save changes</string>
+    <string name="changePassword">Change Password</string>
 </resources>

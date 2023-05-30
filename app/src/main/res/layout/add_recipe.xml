@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/backgroundmain">
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:id="@+id/goBackButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/pink"
             android:text="@string/goBackText"
             android:textSize="28sp"
             android:onClick="onBack"
@@ -96,13 +96,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="selectImage"
+            android:backgroundTint="@color/pink"
             android:text="Select Image" />
 
         <Button
             android:id="@+id/addRecipe"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/pink"
             android:labelFor="@id/ingredientsNewRecipe"
             android:text="@string/addRecipeText"
             android:onClick="addRecipe"
