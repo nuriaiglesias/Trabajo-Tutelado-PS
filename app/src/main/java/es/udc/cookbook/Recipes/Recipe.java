@@ -2,7 +2,25 @@
 
 package es.udc.cookbook.Recipes;
 
+import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+
+import es.udc.cookbook.R;
 
 public class Recipe {
     public String ingredients, imageName, instructions, title, field, user;
@@ -84,9 +102,9 @@ public class Recipe {
     public boolean isUriRecipe() {
         return uriRecipe != null;
     }
+
     public void setUriRecipe(Uri uriRecipe) {
         this.uriRecipe = uriRecipe;
 
     }
-
 }

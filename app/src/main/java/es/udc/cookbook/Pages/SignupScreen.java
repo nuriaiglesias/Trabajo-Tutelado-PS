@@ -1,6 +1,7 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import es.udc.cookbook.R;
 
 public class SignupScreen extends AppCompatActivity {
 
@@ -60,6 +63,11 @@ public class SignupScreen extends AppCompatActivity {
                             // Registro de datos en la BD
                             Usuario usuario = new Usuario(correo, nombre, contrasena);
                             databaseReference.child(nombre).setValue(usuario);
+
+                            SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("username", nombre);
+                            editor.apply();
 
                             Intent intent = new Intent(SignupScreen.this, MainActivity.class);
                             startActivity(intent);

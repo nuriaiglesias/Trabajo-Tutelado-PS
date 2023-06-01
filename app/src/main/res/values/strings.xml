@@ -6,7 +6,7 @@
     <string name="passwordText">Password</string>
     <string name="password2Text">Repeat password</string>
     <string name="usernameText">Username</string>
-    <string name="searchText">Search ...</string>
+    <string name="searchText">Search…</string>
     <string name="emailText">Email</string>
     <string name="mis_recetas">My recipes</string>
     <string name="recetas_favoritas">Favorite recipes</string>
@@ -30,4 +30,7 @@
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="saveText">Save changes</string>
     <string name="changePassword">Change Password</string>
+    <string name="followButton">Follow</string>
+    <string name="Following">Following</string>
+    <string name="unfollowButton">Unfollow</string>
 </resources>

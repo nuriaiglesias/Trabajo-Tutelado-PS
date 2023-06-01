@@ -1,12 +1,10 @@
 package es.udc.cookbook.Recipes;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,20 +16,21 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import es.udc.cookbook.LikedRecipes;
 import es.udc.cookbook.R;
-import es.udc.cookbook.UserRecipes;
 
 public class RecipeDetail extends AppCompatActivity {
     boolean isLiked = false;
 
+    SharedPreferences preferences;
+    String user;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
+
+        TextView creator = findViewById(R.id.creatorRecipe);
 
         TextView titleDt = findViewById(R.id.TitleDetail);
         TextView recipeInfo = findViewById(R.id.RecipeInfo);
@@ -42,6 +41,7 @@ public class RecipeDetail extends AppCompatActivity {
         String image = getIntent().getStringExtra("image");
         String ingredients = getIntent().getStringExtra("ingredients");
         String instructions = getIntent().getStringExtra("instructions");
+        user = getIntent().getStringExtra("user");
 
         ImageButton likeButton = findViewById(R.id.likeButton);
 
@@ -62,6 +62,7 @@ public class RecipeDetail extends AppCompatActivity {
         showImage(imageDt, image);
         //Mostramos el Título
         titleDt.setText(title);
+        creator.setText(user);
         //Mostramos ingredientes
         ingredients = ingredients.substring(1, ingredients.length() - 1);
         String[] elements = ingredients.split(", ");
@@ -107,4 +108,17 @@ public class RecipeDetail extends AppCompatActivity {
                 .into(imageView);
     }
 
+    public void followCreator(View view) {
+        preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
+        String loggedInUser = preferences.getString("username", ""); // Obtén el nombre de usuario del usuario conectado
+        Set<String> followedUsers = preferences.getStringSet(loggedInUser + "_followed_users", new HashSet<>()); // Obtén el conjunto de usuarios seguidos del usuario conectado
+        Set<String> updatedFollowedUsers = new HashSet<>(followedUsers);
+        updatedFollowedUsers.add(user);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putStringSet(loggedInUser + "_followed_users", updatedFollowedUsers); // Asocia la lista de seguidos al usuario conectado
+        editor.apply();
+
+        // Muestra un mensaje de éxito
+        Toast.makeText(this, "Usuario seguido: " + user, Toast.LENGTH_SHORT).show();
+    }
 }

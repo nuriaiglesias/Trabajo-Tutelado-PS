@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import android.content.Context;
 import android.util.Log;
@@ -97,5 +97,4 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
     }
 
 }
-
 

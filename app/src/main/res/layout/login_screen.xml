@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@color/pink"
-    tools:context=".LoginScreen">
+    tools:context=".Pages.LoginScreen">
 
 
     <TextView

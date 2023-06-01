@@ -1,10 +1,9 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -20,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
+import es.udc.cookbook.R;
 
 public class Settings extends AppCompatActivity {
     SharedPreferences preferences;
@@ -46,13 +45,11 @@ public class Settings extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Verificar si el usuario existe en la base de datos
                 if (dataSnapshot.child(username).exists()) {
                     // Obtener los datos del usuario
                     DataSnapshot userSnapshot = dataSnapshot.child(username);
                     String nombre = userSnapshot.child("nombre").getValue(String.class);
                     String email = userSnapshot.child("correo").getValue(String.class);
-                    // Mostrar los datos del usuario en los EditText
                     nombreSettings.setText(nombre);
                     emailSettings.setText(email);
                 }
@@ -92,8 +89,6 @@ public class Settings extends AppCompatActivity {
         // Agregar los EditText al LinearLayout
         layout.addView(currentPasswordEditText);
         layout.addView(newPasswordEditText);
-
-        // Establecer el LinearLayout como la vista del AlertDialog.Builder
         builder.setView(layout);
 
         builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
@@ -101,7 +96,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 String currentPassword = currentPasswordEditText.getText().toString().trim();
-                String nuevaContraseña = newPasswordEditText.getText().toString().trim();
+                String nuevaContrasena = newPasswordEditText.getText().toString().trim();
 
                 DatabaseReference usuarioRef = ref.child(username);
                 usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,7 +106,7 @@ public class Settings extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             String contrasena = dataSnapshot.child("contrasena").getValue(String.class);
                             if(currentPassword.equals(contrasena)){
-                                usuarioRef.child("contrasena").setValue(nuevaContraseña);
+                                usuarioRef.child("contrasena").setValue(nuevaContrasena);
                                 Toast.makeText(Settings.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(Settings.this,"The actual password is not correct", Toast.LENGTH_LONG).show();

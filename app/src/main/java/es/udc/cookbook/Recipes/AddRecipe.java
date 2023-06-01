@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,13 +17,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.Manifest;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,12 +32,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import es.udc.cookbook.Recipes.Recipe;
+import es.udc.cookbook.R;
 
 
 public class AddRecipe extends AppCompatActivity {
 
-    private Button addRecipeButton; // para añadir la receta a la BD
     private EditText titleNewRecipe;
     private EditText ingredientsNewRecipe;
     private EditText instructionNewRecipe;
@@ -47,7 +46,6 @@ public class AddRecipe extends AppCompatActivity {
     AlertDialog dialog;
 
     private final int PICK_IMAGE_GALLERY_CODE = 78;
-    private static final int SELECT_IMAGE_REQUEST = 1;
 
     private final int CAMERA_PERMISSION_REQUEST_CODE = 12345;
 
@@ -57,19 +55,22 @@ public class AddRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_recipe);
-        addRecipeButton = findViewById(R.id.addRecipe);
-        Button selectImageButton = findViewById(R.id.selectImageButton);
         titleNewRecipe = findViewById(R.id.titleNewRecipe);
         ingredientsNewRecipe = findViewById(R.id.ingredientsNewRecipe);
         instructionNewRecipe = findViewById(R.id.instructionNewRecipe);
         titleImageNewRecipe = findViewById(R.id.titleImageNewRecipe);
         storageRef = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Recetas");
+
+        BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBarAddRecipe);
+        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
-    public void onBack(View view){
-        onBackPressed();
-    }
 
     // Para seleccionar la imagen
     public void selectImage(View view) {
@@ -144,12 +145,7 @@ public class AddRecipe extends AppCompatActivity {
             if(data == null || data.getData() == null){
                 return;
             }
-            try {
-                filePath = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            filePath = data.getData();
         }else if(requestCode == CAMERA_PICTURE_REQUEST_CODE && resultCode == Activity.RESULT_OK){
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");

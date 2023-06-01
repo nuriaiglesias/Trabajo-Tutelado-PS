@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Recipes.Following"
+    android:orientation="vertical">
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
+        android:layout_gravity="bottom"
+        tools:ignore="BottomAppBar">
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="cursive"
+            android:text="@string/logo"
+            android:textColor="@color/pink"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/bottomAppBar4" />
+
+</LinearLayout>

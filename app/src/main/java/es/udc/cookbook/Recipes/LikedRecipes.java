@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import es.udc.cookbook.Pages.MainActivity;
+import es.udc.cookbook.R;
 
 public class LikedRecipes extends AppCompatActivity {
     @Override

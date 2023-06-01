@@ -1,18 +1,14 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -27,12 +23,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 
+import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.LikedRecipes;
 import es.udc.cookbook.Recipes.Recipe;
 import es.udc.cookbook.Recipes.RecipeAdapter;
 import es.udc.cookbook.Recipes.RecipeDetail;
+import es.udc.cookbook.Recipes.UserRecipes;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Barra de búsqueda
         searchView = findViewById(R.id.searchView);
-
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.explorar_recetas);
@@ -97,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
                     recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
                     recipe.setCleanedIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
+                    recipe.setUser(Objects.requireNonNull(snapshot.child("user").getValue()).toString());
                     recipes.add(recipe);
                 }
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
@@ -110,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("instructions", recipes.get(position).instructions);
                         intent.putExtra("ingredients", recipes.get(position).ingredients);
                         intent.putExtra("image", recipes.get(position).uriRecipe.toString());
+                        intent.putExtra("user", recipes.get(position).user);
                         startActivity(intent);
                     }
                 });

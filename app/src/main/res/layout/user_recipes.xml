@@ -42,6 +42,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/recycleView2"
+        android:orientation="horizontal">
 
     <Button
         android:id="@+id/settings"
@@ -53,8 +58,21 @@
         android:text="@string/settings"
         android:onClick="settings"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/recycleView2"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/followingButton"
+        android:layout_width="163dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/pink"
+        android:text="@string/Following"
+        android:onClick="following"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView2"
