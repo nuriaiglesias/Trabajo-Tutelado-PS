@@ -49,7 +49,8 @@ public class Following extends AppCompatActivity {
                 String unfollowedUser = userList.get(position);
                 userList.remove(position);
                 adapter.notifyItemRemoved(position);
-                Toast.makeText(Following.this, "Stopped following " + unfollowedUser, Toast.LENGTH_SHORT).show();
+                String stopFollow = getString(R.string.stopFollow);
+                Toast.makeText(Following.this, stopFollow + unfollowedUser, Toast.LENGTH_SHORT).show();
 
                 // Actualiza el conjunto de usuarios seguidos en el SharedPreferences
                 Set<String> updatedFollowedUsers = new HashSet<>(userList);

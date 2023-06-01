@@ -47,7 +47,8 @@ public class LoginScreen extends AppCompatActivity{
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (nombre.length() == 0|| contrasena.length() == 0) {
-                            Toast.makeText(LoginScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
+                            String mensajeVacio = getString(R.string.mensaje_vacio);
+                            Toast.makeText(LoginScreen.this, mensajeVacio, Toast.LENGTH_LONG).show();
                         } else if(snapshot.exists()){
                             String passwordFromDatabase = snapshot.child("contrasena").getValue(String.class);
                             if (contrasena.equals(passwordFromDatabase)) {
@@ -58,19 +59,22 @@ public class LoginScreen extends AppCompatActivity{
                                 editor.apply();
                                 Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                                 startActivity(intent);
-                                Toast.makeText(LoginScreen.this, "Acceso exitoso!", Toast.LENGTH_SHORT).show();
+                                String acceso = getString(R.string.acceso);
+                                Toast.makeText(LoginScreen.this,acceso, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(LoginScreen.this, "Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                                String contrasenaIncorrecta = getString(R.string.contraseñaIncorrecta);
+                                Toast.makeText(LoginScreen.this, contrasenaIncorrecta, Toast.LENGTH_LONG).show();
                             }
                         }else {
-                            Toast.makeText(LoginScreen.this, "El usuario aún no está registrado", Toast.LENGTH_LONG).show();
+                            String noRegistrado = getString(R.string.noRegistrado);
+                            Toast.makeText(LoginScreen.this, noRegistrado, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         // Se produjo un error al intentar leer los datos
-                        Toast.makeText(LoginScreen.this, "Error al leer la base de datos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginScreen.this, "Error at the time of reading the database", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

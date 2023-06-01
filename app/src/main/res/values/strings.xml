@@ -25,12 +25,24 @@
     <string name="details">Details</string>
     <string name="ingredients1">Ingredients</string>
     <string name="settings">Settings</string>
-    <string name="contraseña">Contraseña</string>
-    <string name="nombre_de_usuario">Nombre de usuario</string>
-    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="contraseña">Password</string>
+    <string name="nombre_de_usuario">Username</string>
+    <string name="correo_electr_nico">Email</string>
     <string name="saveText">Save changes</string>
     <string name="changePassword">Change Password</string>
     <string name="followButton">Follow</string>
     <string name="Following">Following</string>
     <string name="unfollowButton">Unfollow</string>
+    <string name="mensaje_vacio">Empty field</string>
+    <string name="acceso">Successful login!</string>
+    <string name="contraseñaIncorrecta">Incorrect password</string>
+    <string name="noRegistrado">Not registered yet</string>
+    <string name="cambioContrasena">Password changed successfully</string>
+    <string name="emailIncorrecto">Email format incorrect</string>
+    <string name="usuarioRep">Username already in use</string>
+    <string name="passwords">Passwords do not match</string>
+    <string name="registroE">Registered successfully!</string>
+    <string name="recetaAñadida">Recipe added!</string>
+    <string name="stopFollow">Stopped following </string>
+    <string name="followUser">Follow user </string>
 </resources>

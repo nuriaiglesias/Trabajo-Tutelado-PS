@@ -107,9 +107,11 @@ public class Settings extends AppCompatActivity {
                             String contrasena = dataSnapshot.child("contrasena").getValue(String.class);
                             if(currentPassword.equals(contrasena)){
                                 usuarioRef.child("contrasena").setValue(nuevaContrasena);
-                                Toast.makeText(Settings.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                                String cambioContrasena = getString(R.string.cambioContrasena);
+                                Toast.makeText(Settings.this, cambioContrasena, Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(Settings.this,"The actual password is not correct", Toast.LENGTH_LONG).show();
+                                String incorrectPassword = getString(R.string.contraseñaIncorrecta);
+                                Toast.makeText(Settings.this,incorrectPassword, Toast.LENGTH_LONG).show();
                             }
                         }
                     }

@@ -67,7 +67,6 @@ public class UserRecipes extends AppCompatActivity {
                         return true;
                     case R.id.mis_recetas:
                         // Abrir pantalla de visualización de recetas guardadas por el usuario
-                        Toast.makeText(getApplicationContext(), "Ya estás en la pantalla de tus recetas", Toast.LENGTH_SHORT).show();
                         return true;
                 }
                 return false;
@@ -80,7 +79,7 @@ public class UserRecipes extends AppCompatActivity {
             TextView usernameTextView = findViewById(R.id.user_name);
             usernameTextView.setText(username);
         } else {
-            Toast.makeText(getApplicationContext(),"No detectado el nombre correctamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Not detected the username", Toast.LENGTH_LONG).show();
         }
 
         GetDataFromFirebase();
@@ -116,7 +115,6 @@ public class UserRecipes extends AppCompatActivity {
                         intent.putExtra("instructions", recipes.get(position).instructions);
                         intent.putExtra("ingredients", recipes.get(position).ingredients);
                         intent.putExtra("user", recipes.get(position).user);
-                        Toast.makeText(getApplicationContext(), recipes.get(position).imageName, Toast.LENGTH_LONG).show();
                         startActivity(intent);
                     }
                 });

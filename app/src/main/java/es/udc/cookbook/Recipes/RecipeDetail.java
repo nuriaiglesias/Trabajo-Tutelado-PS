@@ -45,7 +45,6 @@ public class RecipeDetail extends AppCompatActivity {
 
         ImageButton likeButton = findViewById(R.id.likeButton);
 
-
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +117,8 @@ public class RecipeDetail extends AppCompatActivity {
         editor.putStringSet(loggedInUser + "_followed_users", updatedFollowedUsers); // Asocia la lista de seguidos al usuario conectado
         editor.apply();
 
+        String followUser = getString(R.string.followUser);
         // Muestra un mensaje de éxito
-        Toast.makeText(this, "Usuario seguido: " + user, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, followUser + user, Toast.LENGTH_SHORT).show();
     }
 }

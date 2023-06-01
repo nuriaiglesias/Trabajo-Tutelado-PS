@@ -179,7 +179,8 @@ public class AddRecipe extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             if (titulo.length() == 0|| ingredientes.length() == 0 || instrucciones.length() == 0 || finalTituloImagen.length() == 0) {
-                                Toast.makeText(AddRecipe.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
+                                String campoVacio = getString(R.string.mensaje_vacio);
+                                Toast.makeText(AddRecipe.this, campoVacio, Toast.LENGTH_LONG).show();
                             }else{
                                 SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
                                 String username = preferences.getString("username", "");
@@ -189,9 +190,10 @@ public class AddRecipe extends AppCompatActivity {
                                     receta.setImageLoaded(true);
                                     databaseReference.child(titulo).setValue(receta);
                                 } else {
-                                    Toast.makeText(getApplicationContext(),"No detectado el nombre correctamente", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Not detected the name correctly", Toast.LENGTH_LONG).show();
                                 }
-                                Toast.makeText(AddRecipe.this,"Receta añadida",Toast.LENGTH_LONG).show();
+                                String recetaAnadida = getString(R.string.recetaAñadida);
+                                Toast.makeText(AddRecipe.this,recetaAnadida,Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -199,7 +201,7 @@ public class AddRecipe extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(AddRecipe.this,"Algo ha fallado!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddRecipe.this,"Something went wrong!",Toast.LENGTH_LONG).show();
                 }
             });
         }

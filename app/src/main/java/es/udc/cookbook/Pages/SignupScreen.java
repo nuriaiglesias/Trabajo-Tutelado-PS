@@ -52,13 +52,17 @@ public class SignupScreen extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (correo.length() == 0|| nombre.length() == 0 || contrasena.length() == 0 || contrasena2.length() == 0) {
-                            Toast.makeText(SignupScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
+                            String campoVacio = getString(R.string.mensaje_vacio);
+                            Toast.makeText(SignupScreen.this, campoVacio, Toast.LENGTH_LONG).show();
                         }else if(!Patterns.EMAIL_ADDRESS.matcher(correo).matches()){
-                            Toast.makeText(SignupScreen.this, "Por favor ingrese un correo electrónico válido", Toast.LENGTH_SHORT).show();
+                            String emailIncorrecto = getString(R.string.emailIncorrecto);
+                            Toast.makeText(SignupScreen.this, emailIncorrecto, Toast.LENGTH_SHORT).show();
                         }else if(snapshot.exists()){
-                            Toast.makeText(SignupScreen.this, "El usuario ya está usado, cambie por otro por favor", Toast.LENGTH_LONG).show();
+                            String usuarioRep = getString(R.string.usuarioRep);
+                            Toast.makeText(SignupScreen.this, usuarioRep, Toast.LENGTH_LONG).show();
                         }else if(!contrasena.equals(contrasena2)){
-                            Toast.makeText(SignupScreen.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+                            String passwords = getString(R.string.passwords);
+                            Toast.makeText(SignupScreen.this, passwords, Toast.LENGTH_LONG).show();
                         }else{
                             // Registro de datos en la BD
                             Usuario usuario = new Usuario(correo, nombre, contrasena);
@@ -71,14 +75,15 @@ public class SignupScreen extends AppCompatActivity {
 
                             Intent intent = new Intent(SignupScreen.this, MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(SignupScreen.this, "Registro exitoso!", Toast.LENGTH_SHORT).show();
+                            String registroExitoso = getString(R.string.registroE);
+                            Toast.makeText(SignupScreen.this, registroExitoso, Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         // Se produjo un error al intentar leer los datos
-                        Toast.makeText(SignupScreen.this, "Error al leer la base de datos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignupScreen.this, "Error at the time of reading the database", Toast.LENGTH_SHORT).show();
                     }
                 });
 
