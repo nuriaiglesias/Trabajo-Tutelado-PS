@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import es.udc.cookbook.R;
 
 public class LoginScreen extends AppCompatActivity{
 
@@ -47,9 +49,9 @@ public class LoginScreen extends AppCompatActivity{
                         if (nombre.length() == 0|| contrasena.length() == 0) {
                             Toast.makeText(LoginScreen.this, "El campo de texto está vacío", Toast.LENGTH_LONG).show();
                         } else if(snapshot.exists()){
-                            String passwordFromDatabase = snapshot.child("contrasena").getValue(String.class);
+                            String passwordFromDatabase = snapshot.child("password").getValue(String.class);
                             if (contrasena.equals(passwordFromDatabase)) {
-                                String usernameFromDatabase = snapshot.child("nombre").getValue(String.class);
+                                String usernameFromDatabase = snapshot.child("name").getValue(String.class);
                                 SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("username", usernameFromDatabase);

@@ -1,9 +1,11 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import java.util.UUID;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,7 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import es.udc.cookbook.Recipes.Recipe;
+import es.udc.cookbook.R;
 
 
 public class AddRecipe extends AppCompatActivity {
@@ -188,10 +190,12 @@ public class AddRecipe extends AppCompatActivity {
                                 SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
                                 String username = preferences.getString("username", "");
                                 if (!username.isEmpty()) {
-                                    Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,null,username);
-                                    receta.setUriRecipe(uri);
-                                    receta.setImageLoaded(true);
-                                    databaseReference.child(titulo).setValue(receta);
+                                    String recipeId = UUID.randomUUID().toString(); //Generamos un ID único
+                                    Recipe recipe = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,recipeId,username);
+                                    recipe.setUriRecipe(uri);
+                                    recipe.setImageLoaded(true);
+                                    //Utilizamos el ID para guardar la receta
+                                    databaseReference.child(recipeId).setValue(recipe);
                                 } else {
                                     Toast.makeText(getApplicationContext(),"No detectado el nombre correctamente", Toast.LENGTH_LONG).show();
                                 }

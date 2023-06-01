@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class LikedRecipes extends AppCompatActivity {
+import es.udc.cookbook.Pages.MainActivity;
+import es.udc.cookbook.R;
+
+public class FavRecipes extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_recipes);
+        setContentView(R.layout.fav_recipes);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.recetas_guardadas);

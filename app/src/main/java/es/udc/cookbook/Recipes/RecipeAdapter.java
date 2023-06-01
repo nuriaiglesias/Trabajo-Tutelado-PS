@@ -111,7 +111,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             Glide.with(mContext)
                     .load(recipe.uriRecipe)
                     .into(holder.image);
-            System.out.println(recipe.uriRecipe);
+            System.out.println("akii la que deberiA ESTA BIENM :" + recipe.uriRecipe);
         } else {
             Log.d("RecipeAdapter", "No image found for position " + position);
         }

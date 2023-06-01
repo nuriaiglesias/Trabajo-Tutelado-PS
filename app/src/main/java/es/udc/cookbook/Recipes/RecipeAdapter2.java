@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Recipes;
 
 import android.content.Context;
 import android.util.Log;
@@ -16,11 +16,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import es.udc.cookbook.R;
-import es.udc.cookbook.Recipes.Recipe;
 
 public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHolder> {
     private final ArrayList<Recipe> recipesList;

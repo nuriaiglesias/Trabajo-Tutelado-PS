@@ -1,4 +1,4 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
+import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Recipe;
+import es.udc.cookbook.Users.User;
+
 public class SignupScreen extends AppCompatActivity {
 
     EditText email, username, password, password2;
     Button SignupButton;
     DatabaseReference databaseReference;
+    List<Recipe> favRecipes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class SignupScreen extends AppCompatActivity {
                             Toast.makeText(SignupScreen.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
                         }else{
                             // Registro de datos en la BD
-                            Usuario usuario = new Usuario(correo, nombre, contrasena);
+                            User usuario = new User(correo, nombre, contrasena, favRecipes);
                             databaseReference.child(nombre).setValue(usuario);
 
                             Intent intent = new Intent(SignupScreen.this, MainActivity.class);
@@ -79,15 +86,4 @@ public class SignupScreen extends AppCompatActivity {
         });
     }
 
-    public static class Usuario {
-        public String correo;
-        public String nombre;
-        public String contrasena;
-
-        public Usuario(String correo, String nombre, String contrasena) {
-            this.correo = correo;
-            this.nombre = nombre;
-            this.contrasena = contrasena;
-        }
-    }
 }

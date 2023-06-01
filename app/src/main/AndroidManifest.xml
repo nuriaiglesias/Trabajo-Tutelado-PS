@@ -18,10 +18,10 @@
         android:theme="@style/Theme.CookBooK"
         tools:targetApi="31">
         <activity
-            android:name=".Settings"
+            android:name=".Pages.Settings"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Pages.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
@@ -34,13 +34,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".SignupScreen" />
+        <activity android:name=".Pages.SignupScreen" />
         <activity android:name=".Recipes.RecipeDetail" />
-        <activity android:name=".UserRecipes" />
-        <activity android:name=".LikedRecipes" />
-        <activity android:name=".AddRecipe" />
+        <activity android:name=".Recipes.UserRecipes" />
+        <activity android:name=".Recipes.FavRecipes" />
+        <activity android:name=".Recipes.AddRecipe" />
         <activity
-            android:name=".LoginScreen"
+            android:name=".Pages.LoginScreen"
             android:windowSoftInputMode="adjustPan" />
     </application>
 

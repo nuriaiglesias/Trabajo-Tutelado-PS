@@ -1,18 +1,14 @@
-package es.udc.cookbook;
+package es.udc.cookbook.Pages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -27,12 +23,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 
+import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.FavRecipes;
 import es.udc.cookbook.Recipes.Recipe;
 import es.udc.cookbook.Recipes.RecipeAdapter;
 import es.udc.cookbook.Recipes.RecipeDetail;
+import es.udc.cookbook.Recipes.UserRecipes;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.recetas_guardadas:
                         // Abrir pantalla de visualización de recetas guardadas por el usuario
-                        Intent intentRecetasGuardadas = new Intent(getApplicationContext(), LikedRecipes.class);
+                        Intent intentRecetasGuardadas = new Intent(getApplicationContext(), FavRecipes.class);
                         startActivity(intentRecetasGuardadas);
                         return true;
                 }
@@ -96,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setImageName(Objects.requireNonNull(snapshot.child("imageName").getValue()).toString());
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
                     recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
-                    recipe.setCleanedIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
+                    recipe.setIngredients(Objects.requireNonNull(snapshot.child("ingredients").getValue()).toString());
+                    recipe.setId(Objects.requireNonNull(snapshot.child("id").getValue()).toString());
                     recipes.add(recipe);
                 }
                 recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
@@ -106,10 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
                         Intent intent = new Intent(MainActivity.this, RecipeDetail.class);
-                        intent.putExtra("title", recipes.get(position).title);
-                        intent.putExtra("instructions", recipes.get(position).instructions);
-                        intent.putExtra("ingredients", recipes.get(position).ingredients);
-                        intent.putExtra("image", recipes.get(position).uriRecipe.toString());
+                        intent.putExtra("id", recipes.get(position).id);
                         startActivity(intent);
                     }
                 });

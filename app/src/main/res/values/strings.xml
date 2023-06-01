@@ -30,4 +30,5 @@
     <string name="correo_electr_nico">Correo electrónico</string>
     <string name="saveText">Save changes</string>
     <string name="changePassword">Change Password</string>
+    <string name="nombre_transicion_imagen">Explode</string>
 </resources>
