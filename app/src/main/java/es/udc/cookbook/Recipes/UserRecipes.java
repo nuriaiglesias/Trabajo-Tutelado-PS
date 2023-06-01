@@ -100,7 +100,7 @@ public class UserRecipes extends AppCompatActivity {
                     recipe.setTitle(Objects.requireNonNull(snapshot.child("title").getValue()).toString());
                     recipe.setInstructions(Objects.requireNonNull(snapshot.child("instructions").getValue()).toString());
                     recipe.setCleanedIngredients(Objects.requireNonNull(snapshot.child("cleanedIngredients").getValue()).toString());
-                    recipe.setCleanedIngredients(Objects.requireNonNull(snapshot.child("user").getValue()).toString());
+                    recipe.setUser(Objects.requireNonNull(snapshot.child("user").getValue()).toString());
                     recipes.add(recipe);
                 }
                 recipeAdapter = new RecipeAdapter2(getApplicationContext(), recipes);
@@ -115,7 +115,8 @@ public class UserRecipes extends AppCompatActivity {
                         intent.putExtra("image", recipes.get(position).imageName);
                         intent.putExtra("instructions", recipes.get(position).instructions);
                         intent.putExtra("ingredients", recipes.get(position).ingredients);
-                        intent.putExtra("user", recipes.get(position).ingredients);
+                        intent.putExtra("user", recipes.get(position).user);
+                        Toast.makeText(getApplicationContext(), recipes.get(position).imageName, Toast.LENGTH_LONG).show();
                         startActivity(intent);
                     }
                 });
