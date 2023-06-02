@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -141,5 +142,18 @@ public class Settings extends AppCompatActivity {
         DatabaseReference usuarioRef = ref.child(username);
         usuarioRef.child("nombre").setValue(nuevoNombre);
         usuarioRef.child("correo").setValue(nuevoEmail);
+    }
+
+    public void logout(View view) {
+        // Eliminar los datos almacenados en SharedPreferences
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+
+        // Volver a la actividad de inicio de sesión
+        Intent intent = new Intent(this, LoginScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

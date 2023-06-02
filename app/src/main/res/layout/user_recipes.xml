@@ -8,6 +8,7 @@
     >
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,14 +21,6 @@
             android:background="@color/white"
             android:elevation="4dp"
             app:titleTextColor="@color/black">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_person_24"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="1dp" />
 
             <TextView
                 android:id="@+id/user_name"
@@ -42,61 +35,55 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/recycleView2"
-        android:orientation="horizontal">
-
     <Button
         android:id="@+id/settings"
         android:layout_width="163dp"
         android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="96dp"
         android:backgroundTint="@color/pink"
-        android:text="@string/settings"
         android:onClick="settings"
+        android:text="@string/settings"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout2" />
 
     <Button
         android:id="@+id/followingButton"
         android:layout_width="163dp"
         android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/pink"
-        android:text="@string/Following"
         android:onClick="following"
+        android:text="@string/Following"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView2"
         android:layout_width="384dp"
-        android:layout_height="418dp"
-        android:layout_marginBottom="148dp"
+        android:layout_height="527dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/createRecipeButton"
-        android:layout_width="364dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="8dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/createRecipseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="13dp"
         android:backgroundTint="@color/pink"
+        android:src="@drawable/ic_baseline_add_24"
         android:onClick="createRecipe"
-        android:text="@string/createRecipeText"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_anchorGravity="bottom|end"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

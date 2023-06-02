@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,85 +29,94 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <LinearLayout
-        android:layout_width="421dp"
-        android:layout_height="527dp"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="25dp"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="111dp">
+    <EditText
+        android:id="@+id/titleNewRecipe"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/baseline_title_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/titleNewRecipe"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomAppBarAddRecipe" />
 
-        <EditText
-            android:id="@+id/titleNewRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_title_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/titleNewRecipe"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/ingredientsNewRecipe"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/baseline_fastfood_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/ingredientsNewRecipe"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleNewRecipe" />
 
-        <EditText
-            android:id="@+id/ingredientsNewRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_fastfood_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/ingredientsNewRecipe"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/instructionNewRecipe"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/baseline_reorder_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/instructionNewRecipe"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientsNewRecipe" />
 
-        <EditText
-            android:id="@+id/instructionNewRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_reorder_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/instructionNewRecipe"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/titleImageNewRecipe"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/baseline_image_search_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/imageNewRecipe"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instructionNewRecipe" />
 
-        <EditText
-            android:id="@+id/titleImageNewRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_image_search_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/imageNewRecipe"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <Button
+        android:id="@+id/selectImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/pink"
+        android:onClick="selectImage"
+        android:text="Select Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleImageNewRecipe" />
 
-        <Button
-            android:id="@+id/selectImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="selectImage"
-            android:backgroundTint="@color/pink"
-            android:text="Select Image" />
+    <Button
+        android:id="@+id/addRecipe"
+        android:layout_width="323dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/pink"
+        android:labelFor="@id/ingredientsNewRecipe"
+        android:onClick="addRecipe"
+        android:text="@string/addRecipeText"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectImageButton" />
 
-        <Button
-            android:id="@+id/addRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/pink"
-            android:labelFor="@id/ingredientsNewRecipe"
-            android:text="@string/addRecipeText"
-            android:onClick="addRecipe"
-            android:textSize="28sp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

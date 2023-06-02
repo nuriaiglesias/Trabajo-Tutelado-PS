@@ -22,16 +22,8 @@
             android:elevation="4dp"
             app:titleTextColor="@color/black">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_person_24"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="1dp" />
-
             <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/user_nameF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -46,9 +38,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewFav"
-        android:layout_width="405dp"
-        android:layout_height="597dp"
-        android:layout_marginBottom="56dp"
+        android:layout_width="353dp"
+        android:layout_height="585dp"
+        android:layout_marginBottom="60dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

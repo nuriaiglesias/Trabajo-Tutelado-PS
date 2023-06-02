@@ -45,4 +45,5 @@
     <string name="recetaAñadida">Recipe added!</string>
     <string name="stopFollow">Stopped following </string>
     <string name="followUser">Follow user </string>
+    <string name="log_out">Log Out</string>
 </resources>

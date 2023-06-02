@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,13 @@ public class FavRecipes extends AppCompatActivity {
 
         DatabaseReference userRef = ref.child("Usuarios").child(username);
         DatabaseReference favRecipesRef = userRef.child("favRecipes");
+
+        if (!username.isEmpty()) {
+            TextView usernameTextView = findViewById(R.id.user_nameF);
+            usernameTextView.setText(username);
+        } else {
+            Toast.makeText(getApplicationContext(),"Not detected the username", Toast.LENGTH_LONG).show();
+        }
 
         favRecipesRef.addValueEventListener(new ValueEventListener() {
             @Override

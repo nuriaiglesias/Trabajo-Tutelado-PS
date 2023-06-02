@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,8 +12,10 @@
         android:id="@+id/bottomAppBar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back"
         android:layout_gravity="bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
         tools:ignore="BottomAppBar">
 
         <TextView
@@ -31,56 +33,78 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
 
+    <EditText
+        android:id="@+id/usernameSettings"
+        android:layout_width="328dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/ic_baseline_person_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/usernameText"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomAppBar3" />
 
-        <EditText
-            android:id="@+id/usernameSettings"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/ic_baseline_person_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/usernameText"
-            android:inputType="textPersonName"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/emailSettings"
+        android:layout_width="328dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/emailText"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSettings" />
 
-        <EditText
-            android:id="@+id/emailSettings"
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_email_24"
-            android:drawablePadding="8dp"
-            android:hint="@string/emailText"
-            android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/cardview_dark_background" />
+    <Button
+        android:id="@+id/ChangePassword"
+        android:layout_width="321dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/pink"
+        android:onClick="changePassword"
+        android:text="@string/changePassword"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailSettings" />
 
-        <Button
-            android:id="@+id/ChangePassword"
-            android:layout_width="321dp"
-            android:layout_height="63dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:backgroundTint="@color/pink"
-            android:onClick="changePassword"
-            android:text="@string/changePassword"
-            android:textSize="20sp" />
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="321dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/pink"
+        android:onClick="saveChanges"
+        android:text="@string/saveText"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChangePassword" />
 
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="321dp"
-            android:layout_height="63dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:backgroundTint="@color/pink"
-            android:text="@string/saveText"
-            android:onClick="saveChanges"
-            android:textSize="20sp" />
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="321dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/pink"
+        android:onClick="logout"
+        android:text="@string/log_out"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
