@@ -28,15 +28,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.udc.cookbook.R;
+import es.udc.cookbook.Users.User;
 
 public class RecipeDetail extends AppCompatActivity {
-    Recipe recipe;
     DatabaseReference ref;
     boolean isLiked = false;
     // Recuperamos nombre usuario actual
     SharedPreferences preferences;
     String username;
+
 
 
 
@@ -68,26 +72,20 @@ public class RecipeDetail extends AppCompatActivity {
 
          */
 
+
+
+
+
         // Obtenemos la info de la recta a través del ID
         Recipe.getRecipeById(recipeId, new Recipe.RecipeCallback() {
             @Override
             public void onRecipeLoaded(Recipe recipe) {
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa" + recipe.imageName);
-                System.out.println("por dios que funcione" + recipeId + recipe.ingredients + recipe.uriRecipe);
-
                 //Mostramos la imagen
                 showImage(imageDt, recipe.imageName);
                 //Mostramos el Título
                 titleDt.setText(recipe.title);
                 //Mostramos ingredientes
-                recipe.ingredients = recipe.ingredients.substring(1, recipe.ingredients.length() - 1);
-                String[] elements = recipe.ingredients.split(", ");
-                StringBuilder output = new StringBuilder();
-                for (String element : elements) {
-                    element = element.substring(1, element.length() - 1);
-                    output.append("- ").append(element).append("\n");
-                }
-                String result = output.toString();
+                String result = changeFomat(recipe.ingredients);
                 recipeInfo.setText(result);
                 BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewRecipies);
                 bottomNavigationView.setSelectedItemId(R.id.ingredientes);
@@ -113,22 +111,14 @@ public class RecipeDetail extends AppCompatActivity {
                 // Manejar el error de obtención de la receta
             }
         });
+        boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
+        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
 
 
-
-
-        //Marca las fotos como favoritas
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isLiked = !isLiked;
-                if (isLiked) {
-                    likeButton.setImageResource(R.drawable.ic_active_like);
-                    ref.child("Usuarios").orderByChild("nombre").equalTo(username);
-
-                } else {
-                    likeButton.setImageResource(R.drawable.ic_inactive_like);
-                }
+                FavRecipes.handleFavoriteRecipe(recipeId, likeButton, preferences);
             }
         });
 
@@ -155,39 +145,16 @@ public class RecipeDetail extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.d("RecipeAdapter", "Failed to load image"));
     }
 
-    private void addRecipetoFav() {
-        ref.child("Usuarios").orderByChild("nombre").equalTo(username).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String userId = snapshot.getKey();
-
-                    // Obtener el ID de la receta seleccionada
-                    String recetaId = "ID_DE_LA_RECETA_A_AGREGAR_A_FAVORITOS";
-
-                    // Guardar la receta favorita en la colección "favoritos" del usuario
-                    ref.child("Usuarios").child(userId).child("favoritos").child(recetaId).setValue(true)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        // La receta favorita se guardó exitosamente en el usuario
-                                        Toast.makeText(getApplicationContext(), "Receta agregada a favoritos", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        // Ocurrió un error al guardar la receta favorita en el usuario
-                                        Toast.makeText(getApplicationContext(), "Error al agregar la receta a favoritos", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Ocurrió un error al obtener los datos del usuario
-            }
-        });
-    }
+   private String changeFomat(String ingredients){
+       ingredients = ingredients.substring(1, ingredients.length() - 1);
+       String[] elements = ingredients.split(", ");
+       StringBuilder output = new StringBuilder();
+       for (String element : elements) {
+           element = element.substring(1, element.length() - 1);
+           output.append("- ").append(element).append("\n");
+       }
+       return  output.toString();
+   }
 
 
 

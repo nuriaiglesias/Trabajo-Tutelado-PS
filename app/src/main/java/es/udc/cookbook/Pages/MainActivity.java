@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setId(Objects.requireNonNull(snapshot.child("id").getValue()).toString());
                     recipes.add(recipe);
                 }
-                recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes);
+                SharedPreferences sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
+                recipeAdapter = new RecipeAdapter(getApplicationContext(),recipes, sharedPreferences);
                 recyclerView.setAdapter(recipeAdapter);
 
                 recipeAdapter.setClickListener(new RecipeAdapter.OnItemClickListener() {

@@ -44,21 +44,15 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <GridView
-        android:id="@+id/grid"
-        android:layout_width="382dp"
-        android:layout_height="566dp"
-        android:layout_marginTop="98dp"
-        android:layout_marginBottom="11dp"
-        android:columnWidth="120dp"
-        android:horizontalSpacing="1dp"
-        android:numColumns="auto_fit"
-        android:padding="1dp"
-        android:verticalSpacing="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewFav"
+        android:layout_width="405dp"
+        android:layout_height="597dp"
+        android:layout_marginBottom="56dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

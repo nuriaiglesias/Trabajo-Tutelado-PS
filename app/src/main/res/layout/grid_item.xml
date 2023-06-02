@@ -4,14 +4,14 @@
     android:layout_height="200dp">
 
     <ImageView
-        android:id="@+id/imagen_coche"
+        android:id="@+id/imageViewRecipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:transitionName="@string/nombre_transicion_imagen" />
 
     <TextView
-        android:id="@+id/nombre_coche"
+        android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

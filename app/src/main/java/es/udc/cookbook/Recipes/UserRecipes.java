@@ -101,7 +101,8 @@ public class UserRecipes extends AppCompatActivity {
                     recipe.setId(Objects.requireNonNull(snapshot.child("id").getValue()).toString());
                     recipes.add(recipe);
                 }
-                recipeAdapter = new RecipeAdapter2(getApplicationContext(), recipes);
+                SharedPreferences sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
+                recipeAdapter = new RecipeAdapter2(getApplicationContext(), recipes, sharedPreferences);
                 recyclerView.setAdapter(recipeAdapter);
 
                 recipeAdapter.setClickListener(new RecipeAdapter2.OnItemClickListener() {

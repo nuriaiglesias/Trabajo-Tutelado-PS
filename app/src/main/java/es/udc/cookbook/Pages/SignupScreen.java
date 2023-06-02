@@ -29,7 +29,7 @@ public class SignupScreen extends AppCompatActivity {
     EditText email, username, password, password2;
     Button SignupButton;
     DatabaseReference databaseReference;
-    List<Recipe> favRecipes;
+    List<String> favRecipes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
