@@ -19,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.udc.cookbook.R;
 
@@ -31,17 +32,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Recipe {
-    public String ingredients, imageName, instructions, title, id, user;
+    public String ingredients, imageName, instructions, title, id, user, tag;
     public Uri uriRecipeLoad = null;
     Boolean imageLoaded = false;
 
-    public Recipe(String ingredients, String imageName, String instructions, String title, String id, String user) {
+    public Recipe(String ingredients, String imageName, String instructions, String title, String id, String user, String tag) {
         this.ingredients = ingredients;
         this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
         this.id = id;
         this.user = user;
+        this.tag = tag;
     }
 
 
@@ -106,6 +108,14 @@ public class Recipe {
 
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public void setUriRecipe(Uri uriRecipeLoad) {
         this.uriRecipeLoad = uriRecipeLoad;
     }
@@ -133,6 +143,7 @@ public class Recipe {
                     String instructions = dataSnapshot.child("instructions").getValue(String.class);
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String user = dataSnapshot.child("user").getValue(String.class);
+                    String tag = dataSnapshot.child("tag").getValue(String.class);
 
                     Recipe recipe = new Recipe();
                     recipe.setIngredients(ingredients);
@@ -140,6 +151,7 @@ public class Recipe {
                     recipe.setInstructions(instructions);
                     recipe.setTitle(title);
                     recipe.setUser(user);
+                    recipe.setTag(tag);
                     recipe.setId(recipeId);
 
 

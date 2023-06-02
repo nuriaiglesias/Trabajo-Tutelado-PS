@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
 import androidx.appcompat.widget.SearchView;
 
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private RecipeAdapter recipeAdapter;
     SearchView searchView;
+    AlertDialog dialog;
+    private boolean celiacFilter = false;
+    private boolean veganFilter = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Firebase
         ref = FirebaseDatabase.getInstance().getReference();
-
         // Barra de búsqueda
         searchView = findViewById(R.id.searchView);
 
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setUser(Objects.requireNonNull(snapshot.child("user").getValue()).toString());
                     recipe.setIngredients(Objects.requireNonNull(snapshot.child("ingredients").getValue()).toString());
                     recipe.setId(Objects.requireNonNull(snapshot.child("id").getValue()).toString());
+                    recipe.setTag(Objects.requireNonNull(snapshot.child("tag").getValue()).toString());
                     recipes.add(recipe);
                 }
                 SharedPreferences sharedPreferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
@@ -128,5 +135,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void filters(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select filters");
+        // Configura los elementos de la lista y su estado de selección
+        String[] filters = {"Celiac", "Vegan"};
+        boolean[] checkedItems = {false, false};
+        builder.setMultiChoiceItems(filters, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                // Actualiza el estado de selección al hacer clic en un elemento de la lista
+                if (which == 0) {
+                    celiacFilter = isChecked;
+                } else if (which == 1) {
+                    veganFilter = isChecked;
+                }
+            }
+        });
+        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Aplica los filtros seleccionados
+                celiacFilter = checkedItems[0];
+                veganFilter = checkedItems[1];
+
+                recipeAdapter.setCeliacFilter(celiacFilter);
+                recipeAdapter.setVeganFilter(veganFilter);
+                recipeAdapter.filterData();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+
+        // Marcar los elementos seleccionados según el estado de los filtros
+        ListView listView = dialog.getListView();
+        listView.setItemChecked(0, celiacFilter);
+        listView.setItemChecked(1, veganFilter);
+    }
+
 
 }

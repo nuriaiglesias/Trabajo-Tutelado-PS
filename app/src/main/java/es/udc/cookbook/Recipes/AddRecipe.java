@@ -188,7 +188,7 @@ public class AddRecipe extends AppCompatActivity {
                                 String username = preferences.getString("username", "");
                                 if (!username.isEmpty()) {
                                     String recipeId = UUID.randomUUID().toString(); //Generamos un ID único
-                                    Recipe recipe = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,recipeId,username);
+                                    Recipe recipe = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,recipeId,username,"['none']");
                                     //Utilizamos el ID para guardar la receta
                                     databaseReference.child(recipeId).setValue(recipe);
                                 } else {

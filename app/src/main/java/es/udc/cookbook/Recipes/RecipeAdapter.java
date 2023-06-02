@@ -96,16 +96,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        //Recuperamos info del usuario
-
-        String username = sharedPreferences.getString("username", "");
-
         boolean isLiked = sharedPreferences.getBoolean(recipe.id, false); // Obtener el estado actualizado desde las preferencias
         holder.fav.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
 
-        // Obtener una referencia al usuario
-        DatabaseReference userRef = ref.child("Usuarios").child(username);
         holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,4 +169,42 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         }
     };
 
+    private boolean celiacFilter;
+    private boolean veganFilter;
+
+    public void setCeliacFilter(boolean celiacFilter) {
+        this.celiacFilter = celiacFilter;
+    }
+
+    public void setVeganFilter(boolean veganFilter) {
+        this.veganFilter = veganFilter;
+    }
+
+    public void filterData() {
+        ArrayList<Recipe> filteredList = new ArrayList<>();
+        for (Recipe recipe : recipeListFull) {
+            if (!celiacFilter && !veganFilter) {
+                // Si no se seleccionaron filtros, agregar todas las recetas
+                filteredList.add(recipe);
+            } else {
+                boolean meetsFilterCriteria = true;
+
+                if (celiacFilter && (recipe.getTag() == null || !recipe.getTag().contains("celiac"))) {
+                    meetsFilterCriteria = false;
+                }
+
+                if (veganFilter && (recipe.getTag() == null || !recipe.getTag().contains("vegan"))) {
+                    meetsFilterCriteria = false;
+                }
+
+                if (meetsFilterCriteria) {
+                    filteredList.add(recipe);
+                }
+            }
+        }
+
+        recipesList.clear();
+        recipesList.addAll(filteredList);
+        notifyDataSetChanged();
+    }
 }
