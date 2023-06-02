@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Recipe {
     public String ingredients, imageName, instructions, title, id, user;
-    public Uri uriRecipe = null;
+    public Uri uriRecipeLoad = null;
     Boolean imageLoaded = false;
 
     public Recipe(String ingredients, String imageName, String instructions, String title, String id, String user) {
@@ -44,11 +44,6 @@ public class Recipe {
         this.user = user;
     }
 
-    public Recipe(String title, String imageName, Uri uriRecipe) {
-        this.imageName = imageName;
-        this.title = title;
-        this.uriRecipe = uriRecipe;
-    }
 
     public Recipe() {
 
@@ -111,16 +106,11 @@ public class Recipe {
 
     }
 
-    public boolean isUriRecipe() {
-        return uriRecipe != null;
-    }
-
-    public void setUriRecipe(Uri uriRecipe) {
-        this.uriRecipe = uriRecipe;
-
+    public void setUriRecipe(Uri uriRecipeLoad) {
+        this.uriRecipeLoad = uriRecipeLoad;
     }
     public Uri getUriRecipe() {
-        return uriRecipe;
+        return uriRecipeLoad;
     }
 
     public interface RecipeCallback {

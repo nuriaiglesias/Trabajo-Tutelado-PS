@@ -124,9 +124,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
                     recipe.setUriRecipe(uri);
                 }
             }).addOnFailureListener(e -> Log.d("RecipeAdapter", "Failed to load image for position " + position));
-        } else if (recipe.isUriRecipe()) {
+        } else if (recipe.getUriRecipe() != null) {
             Glide.with(mContext)
-                    .load(recipe.uriRecipe)
+                    .load(recipe.uriRecipeLoad)
                     .into(holder.image);
         } else {
             Log.d("RecipeAdapter", "No image found for position " + position);
