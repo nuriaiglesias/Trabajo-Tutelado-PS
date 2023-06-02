@@ -30,7 +30,6 @@
     <string name="correo_electr_nico">Email</string>
     <string name="saveText">Save changes</string>
     <string name="changePassword">Change Password</string>
-<<<<<<< HEAD
     <string name="followButton">Follow</string>
     <string name="Following">Following</string>
     <string name="unfollowButton">Unfollow</string>
@@ -46,7 +45,4 @@
     <string name="recetaAñadida">Recipe added!</string>
     <string name="stopFollow">Stopped following </string>
     <string name="followUser">Follow user </string>
-=======
-    <string name="nombre_transicion_imagen">Explode</string>
->>>>>>> Future_07
 </resources>
