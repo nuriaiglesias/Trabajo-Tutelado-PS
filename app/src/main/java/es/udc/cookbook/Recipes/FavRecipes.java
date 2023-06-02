@@ -125,7 +125,6 @@ public class FavRecipes extends AppCompatActivity {
                         return true;
                     case R.id.recetas_guardadas:
                         // Abrir pantalla de visualización de recetas guardadas por el usuario
-                        Toast.makeText(getApplicationContext(), "Ya estás en la pantalla de recetas guardadas", Toast.LENGTH_SHORT).show();
                         return true;
                 }
                 return false;

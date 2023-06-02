@@ -109,7 +109,7 @@ public class UserRecipes extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position) {
                         Log.d("_TAG", " Item " + recipes.get(position).imageName);
-                        Intent intent = new Intent(UserRecipes.this, RecipeDetail.class);
+                        Intent intent = new Intent(UserRecipes.this, RecipeDetailUser.class);
                         intent.putExtra("user", recipes.get(position).user);
                         intent.putExtra("id", recipes.get(position).id);
                         startActivity(intent);

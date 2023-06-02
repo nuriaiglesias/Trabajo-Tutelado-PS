@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,11 +42,14 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
         public ImageView image;
         public ImageButton fav;
 
+        public ImageButton deleteButton;
+
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.txtTitle);
             image = view.findViewById(R.id.imageViewRecipe);
             fav = view.findViewById(R.id.likeButtonlist);
+            deleteButton = view.findViewById(R.id.deleteButton);
             view.setOnClickListener(this);
         }
 
@@ -55,7 +61,7 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
 
     // Definimos interfaz
     public interface OnItemClickListener {
-        public void onClick(View view, int position);
+        void onClick(View view, int position);
     }
     // Definimos variable y función para guardar el listener
     private static OnItemClickListener clickListener;
@@ -66,7 +72,7 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
     @NonNull
     @Override
     public RecipeAdapter2.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_tile, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_recipes_grid, parent, false);
         return new MyViewHolder(v);
     }
 
@@ -75,21 +81,22 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-        //Recuperamos info del usuario
-
-        String username = sharedPreferences.getString("username", "");
 
         // Obtener una referencia al usuario
         boolean isLiked = sharedPreferences.getBoolean(recipe.id, false); // Obtener el estado actualizado desde las preferencias
         holder.fav.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
 
-        DatabaseReference userRef = ref.child("Usuarios").child(username);
         holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FavRecipes.handleFavoriteRecipe(recipe.id, holder.fav, sharedPreferences);
+            }
+        });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteRecipe(recipe);
             }
         });
 
@@ -113,6 +120,28 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
         }
     }
 
+    private void deleteRecipe(Recipe recipe) {
+        // Eliminar la receta de la base de datos
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        databaseRef.child("Recetas").child(recipe.id).removeValue();
+
+        // Eliminar la imagen asociada en Firebase Storage
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("FoodImages").child(recipe.imageName);
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // La imagen se eliminó exitosamente
+                Log.d("RecipeAdapter2", "Image deleted successfully");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Ocurrió un error al eliminar la imagen
+                Log.d("RecipeAdapter2", "Failed to delete image: " + e.getMessage());
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
