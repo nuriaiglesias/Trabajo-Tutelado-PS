@@ -36,7 +36,6 @@ public class FavRecipes extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Context mContext;
         setContentView(R.layout.fav_recipes);
         // Recuperamos nombre usuario actual
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -52,17 +51,19 @@ public class FavRecipes extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(),"Not detected the username", Toast.LENGTH_LONG).show();
         }
-
+        //Inicializamos el grid con las recetas favoritas de cada usuario
         favRecipesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     List<String> favRecipes = new ArrayList<>();
                     for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
-                        String recipeId = recipeSnapshot.getValue(String.class);
-                        favRecipes.add(recipeId);
+                        String recipeIdFav = recipeSnapshot.getValue(String.class);
+                        System.out.println("akaaaaaaaaaaaaaaaaa" + recipeIdFav);
+                        favRecipes.add(recipeIdFav);
+                        System.out.println(favRecipes.toString());
                     }
-
+                    //Pagina dónde se muestran las recetas favoritas
                     RecyclerView recyclerView = findViewById(R.id.recycleViewFav);
                     GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
                     recyclerView.setLayoutManager(layoutManager);
@@ -73,6 +74,7 @@ public class FavRecipes extends AppCompatActivity {
                             @Override
                             public void onRecipeLoaded(Recipe recipe) {
                                 loadedRecipes.add(recipeId);
+                                String user = recipe.getUser();
 
                                 if (loadedRecipes.size() == favRecipes.size()) {
                                     // Se han cargado todas las recetas, crear el adaptador y establecerlo en el RecyclerView
@@ -82,9 +84,21 @@ public class FavRecipes extends AppCompatActivity {
                                         @Override
                                         public void onItemClick(int position) {
                                             String clickedRecipeId = loadedRecipes.get(position);
-                                            Intent intent = new Intent(FavRecipes.this, RecipeDetail.class);
-                                            intent.putExtra("id", clickedRecipeId);
-                                            startActivity(intent);
+                                            Recipe.getRecipeById(clickedRecipeId, new Recipe.RecipeCallback() {
+                                                @Override
+                                                public void onRecipeLoaded(Recipe recipe) {
+                                                    String user = recipe.getUser();
+                                                    Intent intent = new Intent(FavRecipes.this, RecipeDetail.class);
+                                                    intent.putExtra("id", clickedRecipeId);
+                                                    intent.putExtra("user", user);
+                                                    startActivity(intent);
+                                                }
+
+                                                @Override
+                                                public void onError(DatabaseError databaseError) {
+                                                    // Maneja el error si ocurre mientras se carga la receta
+                                                }
+                                            });
                                         }
                                     });
                                 }

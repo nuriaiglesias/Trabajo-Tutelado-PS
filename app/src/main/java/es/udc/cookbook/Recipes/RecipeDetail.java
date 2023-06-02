@@ -51,19 +51,6 @@ public class RecipeDetail extends AppCompatActivity {
         //Recuperamos info del usuario
         preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
         username = preferences.getString("username", "");
-        /*
-        if (!username.isEmpty()) {
-            TextView usernameTextView = findViewById(R.id.user_name);
-            usernameTextView.setText(username);
-        } else {
-            Toast.makeText(getApplicationContext(),"No detectado el nombre correctamente", Toast.LENGTH_LONG).show();
-        }
-
-         */
-
-
-
-
 
         // Obtenemos la info de la recta a través del ID
         Recipe.getRecipeById(recipeId, new Recipe.RecipeCallback() {
@@ -150,14 +137,15 @@ public class RecipeDetail extends AppCompatActivity {
     }
 
    private String changeFomat(String ingredients){
-       ingredients = ingredients.substring(1, ingredients.length() - 1);
-       String[] elements = ingredients.split(", ");
-       StringBuilder output = new StringBuilder();
-       for (String element : elements) {
+        System.out.println("holaaaaaaaaaaaaaaaaaaa" + ingredients);
+        ingredients = ingredients.substring(1, ingredients.length() - 1);
+        String[] elements = ingredients.split(", ");
+        StringBuilder output = new StringBuilder();
+        for (String element : elements) {
            element = element.substring(1, element.length() - 1);
            output.append("- ").append(element).append("\n");
-       }
-       return  output.toString();
+        }
+        return  output.toString();
    }
 
 }
