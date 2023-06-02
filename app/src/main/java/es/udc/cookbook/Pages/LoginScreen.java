@@ -50,9 +50,9 @@ public class LoginScreen extends AppCompatActivity{
                             String mensajeVacio = getString(R.string.mensaje_vacio);
                             Toast.makeText(LoginScreen.this, mensajeVacio, Toast.LENGTH_LONG).show();
                         } else if(snapshot.exists()){
-                            String passwordFromDatabase = snapshot.child("contrasena").getValue(String.class);
+                            String passwordFromDatabase = snapshot.child("password").getValue(String.class);
                             if (contrasena.equals(passwordFromDatabase)) {
-                                String usernameFromDatabase = snapshot.child("nombre").getValue(String.class);
+                                String usernameFromDatabase = snapshot.child("name").getValue(String.class);
                                 SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("username", usernameFromDatabase);

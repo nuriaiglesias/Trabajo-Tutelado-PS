@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import java.util.UUID;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -185,10 +187,12 @@ public class AddRecipe extends AppCompatActivity {
                                 SharedPreferences preferences = getSharedPreferences("MY_PREFS", MODE_PRIVATE);
                                 String username = preferences.getString("username", "");
                                 if (!username.isEmpty()) {
-                                    Recipe receta = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,null,username);
-                                    receta.setUriRecipe(uri);
-                                    receta.setImageLoaded(true);
-                                    databaseReference.child(titulo).setValue(receta);
+                                    String recipeId = UUID.randomUUID().toString(); //Generamos un ID único
+                                    Recipe recipe = new Recipe(ingredientes, finalTituloImagen,instrucciones,titulo,recipeId,username);
+                                    recipe.setUriRecipe(uri);
+                                    recipe.setImageLoaded(true);
+                                    //Utilizamos el ID para guardar la receta
+                                    databaseReference.child(recipeId).setValue(recipe);
                                 } else {
                                     Toast.makeText(getApplicationContext(),"Not detected the name correctly", Toast.LENGTH_LONG).show();
                                 }

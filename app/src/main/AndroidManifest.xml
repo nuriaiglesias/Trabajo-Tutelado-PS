@@ -41,6 +41,7 @@
         <activity android:name=".Recipes.RecipeDetail" />
         <activity android:name=".Recipes.UserRecipes" />
         <activity android:name=".Recipes.LikedRecipes" />
+        <activity android:name=".Recipes.FavRecipes" />
         <activity android:name=".Recipes.AddRecipe" />
         <activity
             android:name=".Pages.MainActivity"
