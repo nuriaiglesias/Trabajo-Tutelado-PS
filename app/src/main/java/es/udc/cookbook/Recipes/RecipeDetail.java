@@ -86,10 +86,6 @@ public class RecipeDetail extends AppCompatActivity {
             }
         });
 
-        //Recuperamos info del usuario
-        boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
-        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
-
         // Inicializar el estado del botón de "me gusta" en función de las preferencias
         FavRecipes.initializeLikeButtonState(recipeId, likeButton, preferences);
 
@@ -136,16 +132,20 @@ public class RecipeDetail extends AppCompatActivity {
         Toast.makeText(this, followUser + user, Toast.LENGTH_SHORT).show();
     }
 
-   private String changeFomat(String ingredients){
-        System.out.println("holaaaaaaaaaaaaaaaaaaa" + ingredients);
-        ingredients = ingredients.substring(1, ingredients.length() - 1);
-        String[] elements = ingredients.split(", ");
+    private String changeFomat(String ingredients) {
         StringBuilder output = new StringBuilder();
-        for (String element : elements) {
-           element = element.substring(1, element.length() - 1);
-           output.append("- ").append(element).append("\n");
+        if (ingredients.startsWith("[")) {
+            ingredients = ingredients.substring(1, ingredients.length() - 1);
+            String[] elements = ingredients.split(", ");
+            for (String element : elements) {
+                element = element.substring(1, element.length() - 1);
+                output.append("- ").append(element).append("\n");
+            }
+        } else {
+            output.append("- ").append(ingredients).append("\n");
         }
-        return  output.toString();
-   }
+        return output.toString();
+    }
+
 
 }

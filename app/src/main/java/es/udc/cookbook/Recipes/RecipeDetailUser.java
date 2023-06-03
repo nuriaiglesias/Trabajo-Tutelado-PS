@@ -106,8 +106,9 @@ public class RecipeDetailUser extends AppCompatActivity {
                 // Manejar el error de obtención de la receta
             }
         });
-        boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
-        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
+
+        // Inicializar el estado del botón de "me gusta" en función de las preferencias
+        FavRecipes.initializeLikeButtonState(recipeId, likeButton, preferences);
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override

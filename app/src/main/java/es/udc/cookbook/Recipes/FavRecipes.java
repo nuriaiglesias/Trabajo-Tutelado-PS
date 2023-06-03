@@ -144,16 +144,7 @@ public class FavRecipes extends AppCompatActivity {
 
     }
 
-    public static void initializeFavoriteRecipes(List<String> favRecipes, ImageView likeButton, SharedPreferences preferences) {
-        for (String recipeId : favRecipes) {
-            boolean isFavorite = preferences.getBoolean(recipeId, false);
-            if (isFavorite) {
-                likeButton.setImageResource(R.drawable.ic_active_like);
-            } else {
-                likeButton.setImageResource(R.drawable.ic_inactive_like);
-            }
-        }
-    }
+
 
     public static void handleFavoriteRecipe(String recipeId, ImageView likeButton, SharedPreferences preferences) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();

@@ -84,12 +84,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
-        //Recuperamos info del usuario
-        boolean isLiked = sharedPreferences.getBoolean(recipe.id, false); // Obtener el estado actualizado desde las preferencias
-        holder.fav.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
-
-
-
         // Inicializar el estado del botón de "me gusta" en función de las preferencias
         FavRecipes.initializeLikeButtonState(recipe.id, holder.fav, sharedPreferences);
 

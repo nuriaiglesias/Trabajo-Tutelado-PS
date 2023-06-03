@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/pink"
+        android:background="#D2FFC0CB"
         android:maxLines="1"
-        android:padding="16dp"
+        android:padding="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@android:color/white" />
 
