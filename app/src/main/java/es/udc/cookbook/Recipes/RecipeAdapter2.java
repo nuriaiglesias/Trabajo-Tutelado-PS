@@ -16,14 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.udc.cookbook.R;
+import es.udc.cookbook.Users.User;
 
 public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHolder> {
     private final ArrayList<Recipe> recipesList;
@@ -141,6 +146,30 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
             public void onFailure(@NonNull Exception e) {
                 // Ocurrió un error al eliminar la imagen
                 Log.d("RecipeAdapter2", "Failed to delete image: " + e.getMessage());
+            }
+        });
+
+        // Eliminar la receta de la lista de favoritos de todos los usuarios
+        DatabaseReference usersRef = databaseRef.child("Usuarios");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    if (user != null && user.getFavRecipes() != null) {
+                        List<String> favRecipes = user.getFavRecipes();
+                        if (favRecipes.contains(recipe.id)) {
+                            favRecipes.remove(recipe.id);
+                            usersRef.child(userSnapshot.getKey()).child("favRecipes").setValue(favRecipes);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Ocurrió un error al eliminar la imagen
+                Log.d("RecipeAdapter2", "Failed to delete image");
             }
         });
     }

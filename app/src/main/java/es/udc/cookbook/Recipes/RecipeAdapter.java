@@ -58,15 +58,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         }
     }
 
-    public interface OnFavoriteChangeListener {
-        void onFavoriteChanged(int position, boolean isLiked);
-    }
-    private OnFavoriteChangeListener favoriteChangeListener;
-
-    public void setFavoriteChangeListener(OnFavoriteChangeListener listener) {
-        favoriteChangeListener = listener;
-    }
-
 
     // Definimos interfaz
     public interface OnItemClickListener {
@@ -107,10 +98,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 FavRecipes.handleFavoriteRecipe(recipe.id, holder.fav, sharedPreferences);
-                if (favoriteChangeListener != null) {
-                    boolean isLiked = sharedPreferences.getBoolean(recipe.id, false);
-                    favoriteChangeListener.onFavoriteChanged(holder.getAdapterPosition(), isLiked);
-                }
             }
         });
 
