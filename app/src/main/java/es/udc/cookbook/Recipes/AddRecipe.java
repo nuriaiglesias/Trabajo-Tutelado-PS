@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
 
 
 public class AddRecipe extends AppCompatActivity {
@@ -202,7 +203,7 @@ public class AddRecipe extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(AddRecipe.this,"Something went wrong!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddRecipe.this,getString(R.string.errorGeneral),Toast.LENGTH_LONG).show();
                 }
             });
         }

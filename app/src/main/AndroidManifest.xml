@@ -18,7 +18,7 @@
         android:theme="@style/Theme.CookBooK"
         tools:targetApi="31">
         <activity
-            android:name=".Recipes.RecipeDetailUser"
+            android:name=".Recipes.Detail.RecipeDetailUser"
             android:exported="false" />
         <activity
             android:name=".Recipes.Following"
@@ -41,7 +41,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".Pages.SignupScreen" />
-        <activity android:name=".Recipes.RecipeDetail" />
+        <activity android:name=".Recipes.Detail.RecipeDetail" />
         <activity android:name=".Recipes.UserRecipes" />
         <activity android:name=".Recipes.FavRecipes" />
         <activity android:name=".Recipes.AddRecipe" />

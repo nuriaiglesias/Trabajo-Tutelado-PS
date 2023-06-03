@@ -30,9 +30,9 @@ import java.util.Objects;
 
 import es.udc.cookbook.R;
 import es.udc.cookbook.Recipes.FavRecipes;
-import es.udc.cookbook.Recipes.Recipe;
-import es.udc.cookbook.Recipes.RecipeAdapter;
-import es.udc.cookbook.Recipes.RecipeDetail;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
+import es.udc.cookbook.Recipes.Adapters.RecipeAdapter;
+import es.udc.cookbook.Recipes.Detail.RecipeDetail;
 import es.udc.cookbook.Recipes.UserRecipes;
 
 

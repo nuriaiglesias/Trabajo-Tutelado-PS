@@ -1,4 +1,4 @@
-package es.udc.cookbook.Recipes;
+package es.udc.cookbook.Recipes.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Adapters.FollowingAdapter;
 
 public class Following extends AppCompatActivity {
 

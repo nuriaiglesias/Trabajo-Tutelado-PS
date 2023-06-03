@@ -1,6 +1,6 @@
 
 
-package es.udc.cookbook.Recipes;
+package es.udc.cookbook.Recipes.Constructor;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;

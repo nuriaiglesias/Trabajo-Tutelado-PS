@@ -1,4 +1,4 @@
-package es.udc.cookbook.Recipes;
+package es.udc.cookbook.Recipes.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
+import es.udc.cookbook.Recipes.FavRecipes;
 import es.udc.cookbook.Users.User;
 
 public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHolder> {

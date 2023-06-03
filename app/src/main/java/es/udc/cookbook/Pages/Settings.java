@@ -1,5 +1,6 @@
 package es.udc.cookbook.Pages;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import es.udc.cookbook.R;
@@ -72,19 +74,19 @@ public class Settings extends AppCompatActivity {
     }
     public void changePassword(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Change password");
+        builder.setTitle(getString(R.string.changePass));
         // Crear el LinearLayout contenedor
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
         // Crear el EditText para la contraseña actual
         EditText currentPasswordEditText = new EditText(this);
-        currentPasswordEditText.setHint("Actual password");
+        currentPasswordEditText.setHint(getString(R.string.actualPass));
         currentPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         // Crear el EditText para la nueva contraseña
         EditText newPasswordEditText = new EditText(this);
-        newPasswordEditText.setHint("New password");
+        newPasswordEditText.setHint(getString(R.string.newPass));
         newPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         // Agregar los EditText al LinearLayout
@@ -92,7 +94,7 @@ public class Settings extends AppCompatActivity {
         layout.addView(newPasswordEditText);
         builder.setView(layout);
 
-        builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.change), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -108,24 +110,22 @@ public class Settings extends AppCompatActivity {
                             String contrasena = dataSnapshot.child("password").getValue(String.class);
                             if(currentPassword.equals(contrasena)){
                                 usuarioRef.child("password").setValue(nuevaContrasena);
-                                String cambioContrasena = getString(R.string.cambioContrasena);
-                                Toast.makeText(Settings.this, cambioContrasena, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Settings.this, getString(R.string.cambioContrasena), Toast.LENGTH_SHORT).show();
                             }else{
-                                String incorrectPassword = getString(R.string.contraseñaIncorrecta);
-                                Toast.makeText(Settings.this,incorrectPassword, Toast.LENGTH_LONG).show();
+                                Toast.makeText(Settings.this, getString(R.string.contraseñaIncorrecta), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(Settings.this, "Error obtaining user data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Settings.this, getString(R.string.errorUserdata), Toast.LENGTH_SHORT).show();
                     }
                 });
 
 
             }
         });
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialog.dismiss();
@@ -157,33 +157,59 @@ public class Settings extends AppCompatActivity {
         alertDialog.setTitle(getString(R.string.delete_account));
         alertDialog.setMessage(getString(R.string.alertDelete));
 
-        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // Eliminar la cuenta del usuario
-                DatabaseReference usuarioRef = ref.child(username);
-                usuarioRef.removeValue();
+        if(username.equals("CookBook")) {
+            alertDialog.setMessage(getString(R.string.noDelete));
+            alertDialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+        } else {
+            alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // Eliminar la cuenta del usuario
+                    DatabaseReference usuarioRef = ref.child(username);
+                    usuarioRef.removeValue();
 
-                // Eliminar los datos almacenados en SharedPreferences
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.apply();
+                    // Eliminar los datos almacenados en SharedPreferences
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
 
-                // Volver a la actividad de inicio de sesión
-                Intent intent = new Intent(Settings.this, LoginScreen.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });
+                    // Eliminar las recetas asociadas al usuario
+                    DatabaseReference recetasRef = FirebaseDatabase.getInstance().getReference("Recetas");
+                    Query recetasQuery = recetasRef.orderByChild("user").equalTo(username);
+                    recetasQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                                recipeSnapshot.getRef().removeValue();
+                            }
+                        }
 
-        alertDialog.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(Settings.this, getString(R.string.errorDeleterecipes), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
+                    // Volver a la actividad de inicio de sesión
+                    Intent intent = new Intent(Settings.this, LoginScreen.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            alertDialog.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+        }
         AlertDialog dialog = alertDialog.create();
         dialog.show();
     }

@@ -58,6 +58,20 @@
     <string name="apply">Apply</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="ok">Ok</string>
+    <string name="noDelete">This user is an administrator, he cannot be deleted.</string>
+    <string name="changePass">Change password</string>
+    <string name="change">Change</string>
+    <string name="actualPass">Actual password</string>
+    <string name="newPass">New password</string>
+    <string name="errorUserdata">Error obtaining user data</string>
+    <string name="errorDeleterecipes">Unable to delete recipes</string>
+    <string name="errorReadDatabase">Error at the time of reading the database</string>
+    <string name="errorLoadRecipe">Error load recipe</string>
+    <string name="errorGeneral">Something went wrong!</string>
+
+
+
 
 
 

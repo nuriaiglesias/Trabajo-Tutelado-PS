@@ -73,7 +73,7 @@ public class LoginScreen extends AppCompatActivity{
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(LoginScreen.this, "Error at the time of reading the database", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginScreen.this, getString(R.string.errorReadDatabase), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

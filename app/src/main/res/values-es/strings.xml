@@ -58,6 +58,19 @@
     <string name="apply">Guardar</string>
     <string name="camera">Cámara</string>
     <string name="gallery">Galeria</string>
+    <string name="ok">Aceptar</string>
+    <string name="noDelete">Este usuario es administrador, no puede borrarse</string>
+    <string name="changePass">Cambiar contraseña</string>
+    <string name="change">Cambiar</string>
+    <string name="actualPass">Contraseña Actual</string>
+    <string name="newPass">Nueva Contraseña</string>
+    <string name="errorUserdata">Error al obtener los datos del usuario</string>
+    <string name="errorDeleterecipes">Error al borrar la receta</string>
+    <string name="errorReadDatabase">Error al leer la base de datos</string>
+    <string name="errorLoadRecipe">Error al cargar la receta</string>
+    <string name="errorGeneral">Algo fue mal</string>
+
+
 
 
 </resources>

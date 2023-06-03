@@ -29,6 +29,9 @@ import java.util.Objects;
 import es.udc.cookbook.Pages.MainActivity;
 import es.udc.cookbook.R;
 import es.udc.cookbook.Pages.Settings;
+import es.udc.cookbook.Recipes.Adapters.RecipeAdapter2;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
+import es.udc.cookbook.Recipes.Detail.RecipeDetailUser;
 
 public class UserRecipes extends AppCompatActivity {
     DatabaseReference ref = null;

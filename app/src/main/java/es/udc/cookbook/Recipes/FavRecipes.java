@@ -25,8 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.udc.cookbook.Pages.MainActivity;
-import es.udc.cookbook.Pages.Settings;
 import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Adapters.FavoriteRecipesAdapter;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
+import es.udc.cookbook.Recipes.Detail.RecipeDetail;
 import es.udc.cookbook.Users.User;
 
 public class FavRecipes extends AppCompatActivity {

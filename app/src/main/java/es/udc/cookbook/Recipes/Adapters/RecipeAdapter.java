@@ -1,4 +1,4 @@
-package es.udc.cookbook.Recipes;
+package es.udc.cookbook.Recipes.Adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import es.udc.cookbook.R;
+import es.udc.cookbook.Recipes.Constructor.Recipe;
+import es.udc.cookbook.Recipes.FavRecipes;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> implements Filterable {
     private final ArrayList<Recipe> recipesList;
