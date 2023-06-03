@@ -1,7 +1,4 @@
 package es.udc.cookbook.Recipes;
-
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -13,28 +10,16 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
 import es.udc.cookbook.R;
-import es.udc.cookbook.Users.User;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> implements Filterable {
     private final ArrayList<Recipe> recipesList;
@@ -71,6 +56,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         }
     }
 
+    public interface OnFavoriteChangeListener {
+        void onFavoriteChanged(int position, boolean isLiked);
+    }
+    private OnFavoriteChangeListener favoriteChangeListener;
+
+    public void setFavoriteChangeListener(OnFavoriteChangeListener listener) {
+        favoriteChangeListener = listener;
+    }
+
+
     // Definimos interfaz
     public interface OnItemClickListener {
         public void onClick(View view, int position);
@@ -96,20 +91,24 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("FoodImages");
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         //Recuperamos info del usuario
-
-        String username = sharedPreferences.getString("username", "");
-
         boolean isLiked = sharedPreferences.getBoolean(recipe.id, false); // Obtener el estado actualizado desde las preferencias
         holder.fav.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
 
+
+
+        // Inicializar el estado del botón de "me gusta" en función de las preferencias
+        FavRecipes.initializeLikeButtonState(recipe.id, holder.fav, sharedPreferences);
+
         // Obtener una referencia al usuario
-        DatabaseReference userRef = ref.child("Usuarios").child(username);
         holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FavRecipes.handleFavoriteRecipe(recipe.id, holder.fav, sharedPreferences);
+                if (favoriteChangeListener != null) {
+                    boolean isLiked = sharedPreferences.getBoolean(recipe.id, false);
+                    favoriteChangeListener.onFavoriteChanged(holder.getAdapterPosition(), isLiked);
+                }
             }
         });
 
@@ -175,5 +174,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             notifyDataSetChanged();
         }
     };
+
+
 
 }

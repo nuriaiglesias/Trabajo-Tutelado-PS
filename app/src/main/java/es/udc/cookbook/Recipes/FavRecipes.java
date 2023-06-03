@@ -59,9 +59,7 @@ public class FavRecipes extends AppCompatActivity {
                     List<String> favRecipes = new ArrayList<>();
                     for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                         String recipeIdFav = recipeSnapshot.getValue(String.class);
-                        System.out.println("akaaaaaaaaaaaaaaaaa" + recipeIdFav);
                         favRecipes.add(recipeIdFav);
-                        System.out.println(favRecipes.toString());
                     }
                     //Pagina dónde se muestran las recetas favoritas
                     RecyclerView recyclerView = findViewById(R.id.recycleViewFav);
@@ -74,8 +72,6 @@ public class FavRecipes extends AppCompatActivity {
                             @Override
                             public void onRecipeLoaded(Recipe recipe) {
                                 loadedRecipes.add(recipeId);
-                                String user = recipe.getUser();
-
                                 if (loadedRecipes.size() == favRecipes.size()) {
                                     // Se han cargado todas las recetas, crear el adaptador y establecerlo en el RecyclerView
                                     FavoriteRecipesAdapter adapter = new FavoriteRecipesAdapter(FavRecipes.this, loadedRecipes);
@@ -96,7 +92,7 @@ public class FavRecipes extends AppCompatActivity {
 
                                                 @Override
                                                 public void onError(DatabaseError databaseError) {
-                                                    // Maneja el error si ocurre mientras se carga la receta
+                                                    Toast.makeText(FavRecipes.this,"Something went wrong!",Toast.LENGTH_LONG).show();
                                                 }
                                             });
                                         }
@@ -106,7 +102,7 @@ public class FavRecipes extends AppCompatActivity {
 
                             @Override
                             public void onError(DatabaseError databaseError) {
-                                // Maneja el error si ocurre mientras se carga la receta
+                                Toast.makeText(FavRecipes.this,"Something went wrong!",Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -117,7 +113,7 @@ public class FavRecipes extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Maneja el error si ocurre mientras se obtienen los favoritos del usuario
+                Toast.makeText(FavRecipes.this,"Something went wrong!",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -148,6 +144,16 @@ public class FavRecipes extends AppCompatActivity {
 
     }
 
+    public static void initializeFavoriteRecipes(List<String> favRecipes, ImageView likeButton, SharedPreferences preferences) {
+        for (String recipeId : favRecipes) {
+            boolean isFavorite = preferences.getBoolean(recipeId, false);
+            if (isFavorite) {
+                likeButton.setImageResource(R.drawable.ic_active_like);
+            } else {
+                likeButton.setImageResource(R.drawable.ic_inactive_like);
+            }
+        }
+    }
 
     public static void handleFavoriteRecipe(String recipeId, ImageView likeButton, SharedPreferences preferences) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -165,11 +171,11 @@ public class FavRecipes extends AppCompatActivity {
                         if (favRecipes != null && favRecipes.contains(recipeId)) {
                             removeRecipeFromFavorites(userRef, user, recipeId);
                             preferences.edit().putBoolean(recipeId, false).apply(); // Guardar estado "no me gusta" en las preferencias
-                            //likeButton.setImageResource(R.drawable.ic_inactive_like);
+                            likeButton.setImageResource(R.drawable.ic_inactive_like);
                         } else {
                             addRecipeToFavorites(userRef, user, recipeId);
                             preferences.edit().putBoolean(recipeId, true).apply(); // Guardar estado "me gusta" en las preferencias
-                            //likeButton.setImageResource(R.drawable.ic_active_like);
+                            likeButton.setImageResource(R.drawable.ic_active_like);
                         }
                     }
                 }
@@ -200,4 +206,10 @@ public class FavRecipes extends AppCompatActivity {
             userRef.setValue(user);
         }
     }
+
+    public static void initializeLikeButtonState(String recipeId, ImageView likeButton, SharedPreferences preferences) {
+        boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
+        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
+    }
+
 }

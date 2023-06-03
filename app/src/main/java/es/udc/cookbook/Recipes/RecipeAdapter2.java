@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -82,9 +81,12 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
         Recipe recipe = recipesList.get(position);
         holder.title.setText(recipesList.get(position).getTitle());
 
-        // Obtener una referencia al usuario
+        //Recuperamos info del usuario
         boolean isLiked = sharedPreferences.getBoolean(recipe.id, false); // Obtener el estado actualizado desde las preferencias
         holder.fav.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
+
+        // Inicializar el estado del botón de "me gusta" en función de las preferencias
+        FavRecipes.initializeLikeButtonState(recipe.id, holder.fav, sharedPreferences);
 
         holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,10 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +24,6 @@ import java.util.Set;
 import es.udc.cookbook.R;
 public class RecipeDetail extends AppCompatActivity {
     DatabaseReference ref;
-    // Recuperamos nombre usuario actual
     SharedPreferences preferences;
     String username;
     String user;
@@ -88,8 +85,13 @@ public class RecipeDetail extends AppCompatActivity {
                 // Manejar el error de obtención de la receta
             }
         });
+
+        //Recuperamos info del usuario
         boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
         likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
+
+        // Inicializar el estado del botón de "me gusta" en función de las preferencias
+        FavRecipes.initializeLikeButtonState(recipeId, likeButton, preferences);
 
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +99,6 @@ public class RecipeDetail extends AppCompatActivity {
                 FavRecipes.handleFavoriteRecipe(recipeId, likeButton, preferences);
             }
         });
-
-
 
         //Añadimos botón para volver a la página anterior
         BottomAppBar bottomAppBar = findViewById(R.id.bottomAppBar2);
