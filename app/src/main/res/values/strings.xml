@@ -48,5 +48,13 @@
     <string name="log_out">Log Out</string>
     <string name="delete_account">Delete Account</string>
     <string name="alertDelete">Are you sure you want to delete your account? This action cannot be undone</string>
+    <string name="selectI">Select image</string>
+    <string name="selectOpt">Please select an option</string>
+    <string name="selectF">Select filters</string>
+    <string name="glutenFree">Gluten Free</string>
+    <string name="vegan">Vegan</string>
+
+
+
 
 </resources>

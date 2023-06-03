@@ -48,5 +48,11 @@
     <string name="log_out">Salir</string>
     <string name="delete_account">Borrar cuenta</string>
     <string name="alertDelete">¿Está seguro de que desea eliminar su cuenta? Esta acción no se puede deshacer</string>
+    <string name="selectI">Seleccionar imagen</string>
+    <string name="selectOpt">Seleccione una opción</string>
+    <string name="selectF">Seleccione filtros</string>
+    <string name="glutenFree">Sin gluten</string>
+    <string name="vegan">Vegano</string>
+
 
 </resources>

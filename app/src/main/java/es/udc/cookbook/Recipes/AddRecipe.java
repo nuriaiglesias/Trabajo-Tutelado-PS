@@ -80,8 +80,8 @@ public class AddRecipe extends AppCompatActivity {
 
     private void showImagesSelectedDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select image");
-        builder.setMessage("Please select an option");
+        builder.setTitle(getString(R.string.selectI));
+        builder.setMessage(getString(R.string.selectOpt));
         builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

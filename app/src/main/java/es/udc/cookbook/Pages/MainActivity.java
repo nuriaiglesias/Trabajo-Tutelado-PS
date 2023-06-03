@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void filters(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select filters");
+        builder.setTitle(getString(R.string.selectF));
         // Configura los elementos de la lista y su estado de selección
-        String[] filters = {"Celiac", "Vegan"};
+        String[] filters = {getString(R.string.glutenFree), getString(R.string.vegan)};
         boolean[] checkedItems = {false, false};
         builder.setMultiChoiceItems(filters, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
