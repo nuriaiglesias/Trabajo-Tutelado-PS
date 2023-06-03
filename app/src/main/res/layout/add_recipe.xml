@@ -11,8 +11,11 @@
         android:id="@+id/bottomAppBarAddRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back"
         android:layout_gravity="bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back"
         tools:ignore="BottomAppBar">
 
         <TextView

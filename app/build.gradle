@@ -7,6 +7,11 @@ android {
     namespace 'es.udc.cookbook'
     compileSdk 33
 
+    lintOptions {
+        // Establece la ruta del archivo de referencia de línea base
+        baseline file("lint-baseline.xml")
+    }
+
     defaultConfig {
         applicationId "es.udc.cookbook"
         minSdk 25
