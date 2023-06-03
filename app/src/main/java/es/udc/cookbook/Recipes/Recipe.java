@@ -31,17 +31,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Recipe {
-    public String ingredients, imageName, instructions, title, id, user;
+    public String ingredients, imageName, instructions, title, id, user,tag;
     public Uri uriRecipeLoad = null;
     Boolean imageLoaded = false;
 
-    public Recipe(String ingredients, String imageName, String instructions, String title, String id, String user) {
+    public Recipe(String ingredients, String imageName, String instructions, String title, String id, String user, String tag) {
         this.ingredients = ingredients;
         this.imageName = imageName;
         this.instructions = instructions;
         this.title = title;
         this.id = id;
         this.user = user;
+        this.tag = tag;
     }
 
 
@@ -105,7 +106,13 @@ public class Recipe {
         this.imageLoaded = ImageLoaded;
 
     }
+    public String getTag() {
+        return tag;
+    }
 
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
     public void setUriRecipe(Uri uriRecipeLoad) {
         this.uriRecipeLoad = uriRecipeLoad;
     }

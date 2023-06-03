@@ -26,6 +26,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     private final ArrayList<Recipe> recipeListFull;
     private final SharedPreferences sharedPreferences;
     private final Context mContext;
+    private boolean celiacFilter;
+    private boolean veganFilter;
 
 
     public RecipeAdapter(Context mContext, ArrayList<Recipe> mDataset, SharedPreferences sharedPreferences) {
@@ -174,6 +176,42 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             notifyDataSetChanged();
         }
     };
+
+
+    public void setCeliacFilter(boolean celiacFilter) {
+        this.celiacFilter = celiacFilter;
+    }
+
+    public void setVeganFilter(boolean veganFilter) {
+        this.veganFilter = veganFilter;
+    }
+    public void filterData() {
+        ArrayList<Recipe> filteredList = new ArrayList<>();
+        for (Recipe recipe : recipeListFull) {
+            if (!celiacFilter && !veganFilter) {
+                // Si no se seleccionaron filtros, agregar todas las recetas
+                filteredList.add(recipe);
+            } else {
+                boolean meetsFilterCriteria = true;
+
+                if (celiacFilter && (recipe.getTag() == null || !recipe.getTag().contains("celiac"))) {
+                    meetsFilterCriteria = false;
+                }
+
+                if (veganFilter && (recipe.getTag() == null || !recipe.getTag().contains("vegan"))) {
+                    meetsFilterCriteria = false;
+                }
+
+                if (meetsFilterCriteria) {
+                    filteredList.add(recipe);
+                }
+            }
+        }
+
+        recipesList.clear();
+        recipesList.addAll(filteredList);
+        notifyDataSetChanged();
+    }
 
 
 
