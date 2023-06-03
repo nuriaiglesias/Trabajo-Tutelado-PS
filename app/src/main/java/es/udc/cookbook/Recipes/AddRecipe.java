@@ -82,20 +82,20 @@ public class AddRecipe extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.selectI));
         builder.setMessage(getString(R.string.selectOpt));
-        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 checkCameraPermission();
                 dialog.dismiss();
             }
         });
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.gallery), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 selectFromGallery();

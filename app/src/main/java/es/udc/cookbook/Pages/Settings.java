@@ -162,7 +162,7 @@ public class Settings extends AppCompatActivity {
         alertDialog.setTitle(getString(R.string.delete_account));
         alertDialog.setMessage(getString(R.string.alertDelete));
 
-        alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // Eliminar la cuenta del usuario
@@ -182,7 +182,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

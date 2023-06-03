@@ -53,6 +53,11 @@
     <string name="selectF">Seleccione filtros</string>
     <string name="glutenFree">Sin gluten</string>
     <string name="vegan">Vegano</string>
+    <string name="delete">Borrar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="apply">Guardar</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galeria</string>
 
 
 </resources>

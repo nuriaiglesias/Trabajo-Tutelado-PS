@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        builder.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.apply), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 celiacFilter = checkedItems[0];
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 recipeAdapter.filterData();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
