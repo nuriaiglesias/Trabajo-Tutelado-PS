@@ -118,7 +118,7 @@ public class Settings extends AppCompatActivity {
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Error al obtener los datos del usuario
+                        Toast.makeText(Settings.this, "Error obtaining user data", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -156,4 +156,41 @@ public class Settings extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void deleteAccount(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Delete Account");
+        alertDialog.setMessage("Are you sure you want to delete your account? This action cannot be undone.");
+
+        alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Eliminar la cuenta del usuario
+                DatabaseReference usuarioRef = ref.child(username);
+                usuarioRef.removeValue();
+
+                // Eliminar los datos almacenados en SharedPreferences
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.apply();
+
+                // Volver a la actividad de inicio de sesión
+                Intent intent = new Intent(Settings.this, LoginScreen.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+    }
+
 }

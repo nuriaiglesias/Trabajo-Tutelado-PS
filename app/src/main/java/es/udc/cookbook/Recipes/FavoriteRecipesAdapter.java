@@ -5,9 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import es.udc.cookbook.R;
 
 
@@ -68,19 +65,17 @@ public class FavoriteRecipesAdapter extends RecyclerView.Adapter<FavoriteRecipes
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String recipeId = recipesList.get(position);
-        System.out.println(recipeId);
 
         Recipe.getRecipeById(recipeId, new Recipe.RecipeCallback() {
             @Override
             public void onRecipeLoaded(Recipe recipe) {
-                System.out.println(recipe.getTitle());
                 holder.title.setText(recipe.getTitle());
                 showImage(holder.image, recipe.imageName);
             }
 
             @Override
             public void onError(DatabaseError databaseError) {
-                // Maneja el error si ocurre mientras se carga la receta
+                Toast.makeText(mContext, "Error load recipe", Toast.LENGTH_SHORT).show();
             }
         });
         final int itemPosition = position;
@@ -89,7 +84,6 @@ public class FavoriteRecipesAdapter extends RecyclerView.Adapter<FavoriteRecipes
             public void onClick(View view) {
                 if (mListener != null) {
                     mListener.onItemClick(itemPosition);
-                    System.out.println("Posicionn" + itemPosition);
                 }
             }
         });

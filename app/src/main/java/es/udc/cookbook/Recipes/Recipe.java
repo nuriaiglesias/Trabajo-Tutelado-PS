@@ -1,26 +1,7 @@
 
 
 package es.udc.cookbook.Recipes;
-
-import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
-
-import es.udc.cookbook.R;
 
 import androidx.annotation.NonNull;
 
@@ -50,25 +31,16 @@ public class Recipe {
 
     }
 
-    public String getIngredients() {
-        return ingredients;
-    }
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
-    public String getImageName() {
-        return imageName;
-    }
 
     public void setImageName(String Image_Name) {
         this.imageName = Image_Name + ".jpg";
     }
 
-    public String getInstructions() {
-        return instructions;
-    }
 
     public void setInstructions(String ins) {
         this.instructions = ins;

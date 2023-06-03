@@ -21,7 +21,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.HashSet;
 import java.util.Set;
+
+import es.udc.cookbook.Pages.Settings;
 import es.udc.cookbook.R;
+
 public class RecipeDetail extends AppCompatActivity {
     DatabaseReference ref;
     SharedPreferences preferences;
@@ -82,7 +85,7 @@ public class RecipeDetail extends AppCompatActivity {
 
             @Override
             public void onError(DatabaseError databaseError) {
-                // Manejar el error de obtención de la receta
+                Toast.makeText(RecipeDetail.this, "Error obtaining recipe", Toast.LENGTH_SHORT).show();
             }
         });
 

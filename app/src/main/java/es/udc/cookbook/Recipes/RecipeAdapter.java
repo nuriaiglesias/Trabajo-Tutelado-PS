@@ -86,6 +86,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         holder.title.setText(recipesList.get(position).getTitle());
         // Inicializar el estado del botón de "me gusta" en función de las preferencias
         FavRecipes.initializeLikeButtonState(recipe.id, holder.fav, sharedPreferences);
+        FavRecipes.initializeLikeButtonState(recipe.id, holder.fav, sharedPreferences);
 
         // Obtener una referencia al usuario
         holder.fav.setOnClickListener(new View.OnClickListener() {

@@ -63,11 +63,11 @@ public class RecipeAdapter2 extends RecyclerView.Adapter<RecipeAdapter2.MyViewHo
         }
     }
 
-    // Definimos interfaz
     public interface OnItemClickListener {
         void onClick(View view, int position);
     }
-    // Definimos variable y función para guardar el listener
+
+
     private static OnItemClickListener clickListener;
     public void setClickListener(OnItemClickListener itemClickListener) {
         clickListener = itemClickListener;

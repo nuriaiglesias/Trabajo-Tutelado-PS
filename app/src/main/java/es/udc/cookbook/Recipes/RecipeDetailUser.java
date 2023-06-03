@@ -24,6 +24,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.HashSet;
 import java.util.Set;
+
+import es.udc.cookbook.Pages.Settings;
 import es.udc.cookbook.R;
 
 public class RecipeDetailUser extends AppCompatActivity {
@@ -103,7 +105,7 @@ public class RecipeDetailUser extends AppCompatActivity {
 
             @Override
             public void onError(DatabaseError databaseError) {
-                // Manejar el error de obtención de la receta
+                Toast.makeText(RecipeDetailUser.this, "Error obtaining recipe", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -161,7 +163,6 @@ public class RecipeDetailUser extends AppCompatActivity {
         String newTitle = titleDt.getText().toString();
         String newInstructions = instructions.getText().toString();
         String newResult = ingredientsEt.getText().toString();
-        // Crea una referencia a la ubicación de la receta en la base de datos
         DatabaseReference recipeRef = ref.child("Recetas").child(recipeId);
 
         // Actualiza los campos de título y receta en la base de datos

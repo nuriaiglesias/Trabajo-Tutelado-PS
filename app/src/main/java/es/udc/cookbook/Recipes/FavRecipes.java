@@ -1,12 +1,8 @@
 package es.udc.cookbook.Recipes;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.udc.cookbook.Pages.MainActivity;
+import es.udc.cookbook.Pages.Settings;
 import es.udc.cookbook.R;
 import es.udc.cookbook.Users.User;
 
@@ -73,7 +70,6 @@ public class FavRecipes extends AppCompatActivity {
                             public void onRecipeLoaded(Recipe recipe) {
                                 loadedRecipes.add(recipeId);
                                 if (loadedRecipes.size() == favRecipes.size()) {
-                                    // Se han cargado todas las recetas, crear el adaptador y establecerlo en el RecyclerView
                                     FavoriteRecipesAdapter adapter = new FavoriteRecipesAdapter(FavRecipes.this, loadedRecipes);
                                     recyclerView.setAdapter(adapter);
                                     adapter.setOnItemClickListener(new FavoriteRecipesAdapter.OnItemClickListener() {
@@ -106,8 +102,6 @@ public class FavRecipes extends AppCompatActivity {
                             }
                         });
                     }
-                } else {
-                    // No se encontraron favoritos para el usuario actual
                 }
             }
 
@@ -149,9 +143,9 @@ public class FavRecipes extends AppCompatActivity {
     public static void handleFavoriteRecipe(String recipeId, ImageView likeButton, SharedPreferences preferences) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         // Recuperamos nombre usuario actual
-
         String username = preferences.getString("username", "");
         DatabaseReference userRef = ref.child("Usuarios").child(username);
+
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -174,7 +168,7 @@ public class FavRecipes extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Manejar el error aquí si es necesario
+                //
             }
         });
     }
@@ -200,7 +194,7 @@ public class FavRecipes extends AppCompatActivity {
 
     public static void initializeLikeButtonState(String recipeId, ImageView likeButton, SharedPreferences preferences) {
         boolean isLiked = preferences.getBoolean(recipeId, false); // Obtener el estado actualizado desde las preferencias
-        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like); // Establecer el recurso del botón según el estado
+        likeButton.setImageResource(isLiked ? R.drawable.ic_active_like : R.drawable.ic_inactive_like);
     }
 
 }
