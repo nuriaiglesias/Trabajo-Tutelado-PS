@@ -201,15 +201,19 @@ public class RecipeDetailUser extends AppCompatActivity {
         Toast.makeText(this, followUser + user, Toast.LENGTH_SHORT).show();
     }
 
-    private String changeFomat(String ingredients){
-        ingredients = ingredients.substring(1, ingredients.length() - 1);
-        String[] elements = ingredients.split(", ");
+    private String changeFomat(String ingredients) {
         StringBuilder output = new StringBuilder();
-        for (String element : elements) {
-            element = element.substring(1, element.length() - 1);
-            output.append("- ").append(element).append("\n");
+        if (ingredients.startsWith("[")) {
+            ingredients = ingredients.substring(1, ingredients.length() - 1);
+            String[] elements = ingredients.split(", ");
+            for (String element : elements) {
+                element = element.substring(1, element.length() - 1);
+                output.append("- ").append(element).append("\n");
+            }
+        } else {
+            output.append("- ").append(ingredients).append("\n");
         }
-        return  output.toString();
+        return output.toString();
     }
 
 }
