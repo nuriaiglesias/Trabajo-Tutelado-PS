@@ -49,8 +49,8 @@ public class Settings extends AppCompatActivity {
                 if (dataSnapshot.child(username).exists()) {
                     // Obtener los datos del usuario
                     DataSnapshot userSnapshot = dataSnapshot.child(username);
-                    String nombre = userSnapshot.child("nombre").getValue(String.class);
-                    String email = userSnapshot.child("correo").getValue(String.class);
+                    String nombre = userSnapshot.child("name").getValue(String.class);
+                    String email = userSnapshot.child("mail").getValue(String.class);
                     nombreSettings.setText(nombre);
                     emailSettings.setText(email);
                 }
