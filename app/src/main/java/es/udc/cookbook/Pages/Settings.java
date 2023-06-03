@@ -105,9 +105,9 @@ public class Settings extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Verificar si el usuario existe en la base de datos
                         if (dataSnapshot.exists()) {
-                            String contrasena = dataSnapshot.child("contrasena").getValue(String.class);
+                            String contrasena = dataSnapshot.child("password").getValue(String.class);
                             if(currentPassword.equals(contrasena)){
-                                usuarioRef.child("contrasena").setValue(nuevaContrasena);
+                                usuarioRef.child("password").setValue(nuevaContrasena);
                                 String cambioContrasena = getString(R.string.cambioContrasena);
                                 Toast.makeText(Settings.this, cambioContrasena, Toast.LENGTH_SHORT).show();
                             }else{
@@ -140,16 +140,11 @@ public class Settings extends AppCompatActivity {
         String nuevoEmail = emailSettings.getText().toString();
 
         DatabaseReference usuarioRef = ref.child(username);
-        usuarioRef.child("nombre").setValue(nuevoNombre);
-        usuarioRef.child("correo").setValue(nuevoEmail);
+        usuarioRef.child("name").setValue(nuevoNombre);
+        usuarioRef.child("mail").setValue(nuevoEmail);
     }
 
     public void logout(View view) {
-        // Eliminar los datos almacenados en SharedPreferences
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
-
         // Volver a la actividad de inicio de sesión
         Intent intent = new Intent(this, LoginScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
