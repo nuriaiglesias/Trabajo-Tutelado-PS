@@ -47,4 +47,6 @@
     <string name="followUser">Has empezado a seguir a </string>
     <string name="log_out">Salir</string>
     <string name="delete_account">Borrar cuenta</string>
+    <string name="alertDelete">¿Está seguro de que desea eliminar su cuenta? Esta acción no se puede deshacer</string>
+
 </resources>

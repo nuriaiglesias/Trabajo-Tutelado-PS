@@ -159,8 +159,8 @@ public class Settings extends AppCompatActivity {
 
     public void deleteAccount(View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Delete Account");
-        alertDialog.setMessage("Are you sure you want to delete your account? This action cannot be undone.");
+        alertDialog.setTitle(getString(R.string.delete_account));
+        alertDialog.setMessage(getString(R.string.alertDelete));
 
         alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
